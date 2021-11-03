@@ -1,4 +1,5 @@
 import 'package:ceo_transport/screens/auth/login.dart';
+import 'package:ceo_transport/screens/auth_screens/login.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -22,7 +23,7 @@ class MyApp extends StatelessWidget {
             bodyText1: TextStyle(fontSize: 20, color: Colors.black),
           ),
           primaryColor: Colors.amber),
-      home: LoginScreen(),
+      home: LoginPage(),
     );
   }
 }

@@ -3,7 +3,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:ceo_transport/constants/constants.dart';
 import 'package:ceo_transport/job_details.dart';
 import 'package:ceo_transport/models/driver_details.dart';
-import 'package:ceo_transport/screens/auth/login.dart';
+import 'package:ceo_transport/screens/auth_screens/login.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -108,7 +108,7 @@ class _HomePageState extends State<HomePage> {
                 child: InkWell(
                   onTap: () =>
                       Navigator.of(context).pushReplacement(MaterialPageRoute(
-                    builder: (context) => LoginScreen(),
+                    builder: (context) => LoginPage(),
                   )),
                   child: Container(
                     decoration: BoxDecoration(

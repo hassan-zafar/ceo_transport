@@ -1,5 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.hassan.ceo_transport">
+    <uses-permission android:name="android.permission.INTERNET"/>
+
    <application
         android:label="ceo_transport"
         android:icon="@mipmap/ic_launcher">
