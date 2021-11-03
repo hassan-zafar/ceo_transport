@@ -3,6 +3,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:ceo_transport/constants/constants.dart';
 import 'package:ceo_transport/job_details.dart';
 import 'package:ceo_transport/models/driver_details.dart';
+import 'package:ceo_transport/screens/auth/login.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -104,17 +105,23 @@ class _HomePageState extends State<HomePage> {
               ),
               Expanded(
                 flex: 1,
-                child: Container(
-                  decoration: BoxDecoration(
-                      color: Color(0xff27AD55),
-                      borderRadius: BorderRadius.only(
-                        topRight: Radius.circular(20),
-                      )),
-                  child: Padding(
-                    padding: const EdgeInsets.all(12.0),
-                    child: AutoSizeText(
-                      "Log Out",
-                      style: Theme.of(context).textTheme.bodyText1,
+                child: InkWell(
+                  onTap: () =>
+                      Navigator.of(context).pushReplacement(MaterialPageRoute(
+                    builder: (context) => LoginScreen(),
+                  )),
+                  child: Container(
+                    decoration: BoxDecoration(
+                        color: Color(0xff27AD55),
+                        borderRadius: BorderRadius.only(
+                          topRight: Radius.circular(20),
+                        )),
+                    child: Padding(
+                      padding: const EdgeInsets.all(12.0),
+                      child: AutoSizeText(
+                        "Log Out",
+                        style: Theme.of(context).textTheme.bodyText1,
+                      ),
                     ),
                   ),
                 ),
@@ -288,7 +295,8 @@ class _jobCardState extends State<jobCard> {
                         Row(
                           children: [
                             latePuClicked!
-                                ? Expanded(
+                                ? Container()
+                                : Expanded(
                                     child: InkWell(
                                       onTap: () {
                                         setState(() {
@@ -310,8 +318,7 @@ class _jobCardState extends State<jobCard> {
                                                 .bodyText1,
                                           )),
                                     ),
-                                  )
-                                : Container(),
+                                  ),
                             Expanded(
                                 child: Container(
                                     margin: EdgeInsets.all(8),
@@ -329,48 +336,46 @@ class _jobCardState extends State<jobCard> {
                           ],
                         ),
                         latePuClicked!
-                            ? Row(
+                            ? Column(
                                 children: [
-                                  Expanded(
-                                    child: Container(
-                                        margin: EdgeInsets.all(12),
-                                        decoration: BoxDecoration(
-                                            color: Colors.purple,
-                                            borderRadius:
-                                                BorderRadius.circular(12)),
-                                        padding: EdgeInsets.only(
-                                            top: 12,
-                                            bottom: 12,
-                                            left: 28,
-                                            right: 28),
-                                        child: AutoSizeText(
-                                          "Late Driver",
-                                          textAlign: TextAlign.center,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .bodyText1,
-                                        )),
-                                  ),
-                                  Expanded(
-                                    child: Container(
-                                        margin: EdgeInsets.all(12),
-                                        decoration: BoxDecoration(
-                                            color: Colors.blue,
-                                            borderRadius:
-                                                BorderRadius.circular(12)),
-                                        padding: EdgeInsets.only(
-                                            top: 12,
-                                            bottom: 12,
-                                            left: 28,
-                                            right: 28),
-                                        child: AutoSizeText(
-                                          "Late PAX   ",
-                                          textAlign: TextAlign.center,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .bodyText1,
-                                        )),
-                                  ),
+                                  Container(
+                                      width: double.maxFinite,
+                                      margin: EdgeInsets.all(12),
+                                      decoration: BoxDecoration(
+                                          color: Colors.purple,
+                                          borderRadius:
+                                              BorderRadius.circular(12)),
+                                      padding: EdgeInsets.only(
+                                          top: 12,
+                                          bottom: 12,
+                                          left: 28,
+                                          right: 28),
+                                      child: AutoSizeText(
+                                        "Late Driver",
+                                        textAlign: TextAlign.center,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyText1,
+                                      )),
+                                  Container(
+                                      width: double.maxFinite,
+                                      margin: EdgeInsets.all(12),
+                                      decoration: BoxDecoration(
+                                          color: Colors.blue,
+                                          borderRadius:
+                                              BorderRadius.circular(12)),
+                                      padding: EdgeInsets.only(
+                                          top: 12,
+                                          bottom: 12,
+                                          left: 28,
+                                          right: 28),
+                                      child: AutoSizeText(
+                                        "Late PAX   ",
+                                        textAlign: TextAlign.center,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyText1,
+                                      )),
                                 ],
                               )
                             : Container(),
