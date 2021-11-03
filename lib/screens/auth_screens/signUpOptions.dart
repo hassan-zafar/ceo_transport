@@ -1,11 +1,8 @@
-
 import 'package:ceo_transport/constants/commonUIFunctions.dart';
 import 'package:ceo_transport/constants/constants.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
-import 'package:geocoding/geocoding.dart';
-import 'package:geolocator/geolocator.dart';
 
 class SignUpPage extends StatefulWidget {
   @override
@@ -27,7 +24,6 @@ class _SignUpPageState extends State<SignUpPage> {
   TextEditingController _confirmPasswordController = TextEditingController();
   String registerId = Uuid().v4();
   String socialId = Uuid().v4();
-  Position? position;
 
   bool _isLoading = false;
 
@@ -244,26 +240,7 @@ class _SignUpPageState extends State<SignUpPage> {
                             ),
                           ),
                         ),
-                        Container(
-                          width: 200.0,
-                          height: 100.0,
-                          alignment: Alignment.center,
-                          child: RaisedButton.icon(
-                            label: Text(
-                              "Use Current Location",
-                              style: TextStyle(color: Colors.white),
-                            ),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(30.0),
-                            ),
-                            color: Colors.green,
-                            onPressed: getUserLocation,
-                            icon: Icon(
-                              Icons.my_location,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ),
+
                         GestureDetector(
                           //onTap: _handleSignUp,
                           child: buildSignUpLoginButton(
@@ -359,20 +336,4 @@ class _SignUpPageState extends State<SignUpPage> {
   //   }
   // }
 
-  getUserLocation() async {
-    LocationPermission permission = await Geolocator.requestPermission();
-    Position _position = await Geolocator.getCurrentPosition(
-      desiredAccuracy: LocationAccuracy.high,
-    );
-    setState(() {
-      position = _position;
-    });
-    List<Placemark> placeMarks =
-        await placemarkFromCoordinates(position!.latitude, position!.longitude);
-    Placemark placemark = placeMarks[0];
-    String completeAddress =
-        '${placemark.street}, ${placemark.subLocality}, ${placemark.locality}, ${placemark.subAdministrativeArea}, ${placemark.administrativeArea} ${placemark.postalCode}, ${placemark.country}';
-    print(completeAddress);
-    _locationController.text = completeAddress;
-  }
 }
