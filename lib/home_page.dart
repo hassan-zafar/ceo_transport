@@ -183,7 +183,7 @@ class _jobCardState extends State<jobCard> {
                       Row(
                         children: [
                           AutoSizeText(
-                            "Pick Up Time: ",
+                            "PU Time: ",
                           ),
                           AutoSizeText(
                             widget.puTime!,
@@ -287,49 +287,9 @@ class _jobCardState extends State<jobCard> {
                             )),
                         Row(
                           children: [
-                            Expanded(
-                              child: latePuClicked!
-                                  ? Column(
-                                      children: [
-                                        Container(
-                                            margin: EdgeInsets.all(12),
-                                            decoration: BoxDecoration(
-                                                color: Colors.purple,
-                                                borderRadius:
-                                                    BorderRadius.circular(12)),
-                                            padding: EdgeInsets.only(
-                                                top: 12,
-                                                bottom: 12,
-                                                left: 28,
-                                                right: 28),
-                                            child: AutoSizeText(
-                                              "Late Driver",
-                                              textAlign: TextAlign.center,
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .bodyText1,
-                                            )),
-                                        Container(
-                                            margin: EdgeInsets.all(12),
-                                            decoration: BoxDecoration(
-                                                color: Colors.blue,
-                                                borderRadius:
-                                                    BorderRadius.circular(12)),
-                                            padding: EdgeInsets.only(
-                                                top: 12,
-                                                bottom: 12,
-                                                left: 28,
-                                                right: 28),
-                                            child: AutoSizeText(
-                                              "Late PAX   ",
-                                              textAlign: TextAlign.center,
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .bodyText1,
-                                            )),
-                                      ],
-                                    )
-                                  : InkWell(
+                            latePuClicked!
+                                ? Expanded(
+                                    child: InkWell(
                                       onTap: () {
                                         setState(() {
                                           latePuClicked = true;
@@ -350,7 +310,8 @@ class _jobCardState extends State<jobCard> {
                                                 .bodyText1,
                                           )),
                                     ),
-                            ),
+                                  )
+                                : Container(),
                             Expanded(
                                 child: Container(
                                     margin: EdgeInsets.all(8),
@@ -367,6 +328,52 @@ class _jobCardState extends State<jobCard> {
                                     ))),
                           ],
                         ),
+                        latePuClicked!
+                            ? Row(
+                                children: [
+                                  Expanded(
+                                    child: Container(
+                                        margin: EdgeInsets.all(12),
+                                        decoration: BoxDecoration(
+                                            color: Colors.purple,
+                                            borderRadius:
+                                                BorderRadius.circular(12)),
+                                        padding: EdgeInsets.only(
+                                            top: 12,
+                                            bottom: 12,
+                                            left: 28,
+                                            right: 28),
+                                        child: AutoSizeText(
+                                          "Late Driver",
+                                          textAlign: TextAlign.center,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodyText1,
+                                        )),
+                                  ),
+                                  Expanded(
+                                    child: Container(
+                                        margin: EdgeInsets.all(12),
+                                        decoration: BoxDecoration(
+                                            color: Colors.blue,
+                                            borderRadius:
+                                                BorderRadius.circular(12)),
+                                        padding: EdgeInsets.only(
+                                            top: 12,
+                                            bottom: 12,
+                                            left: 28,
+                                            right: 28),
+                                        child: AutoSizeText(
+                                          "Late PAX   ",
+                                          textAlign: TextAlign.center,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodyText1,
+                                        )),
+                                  ),
+                                ],
+                              )
+                            : Container(),
                         Container(
                             margin: EdgeInsets.all(8),
                             width: double.maxFinite,
