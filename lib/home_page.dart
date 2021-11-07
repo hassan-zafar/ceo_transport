@@ -5,7 +5,7 @@ import 'package:ceo_transport/job_details.dart';
 import 'package:ceo_transport/models/driver_details.dart';
 import 'package:ceo_transport/screens/auth_screens/login.dart';
 import 'package:flutter/material.dart';
-
+import 'url';
 class HomePage extends StatefulWidget {
   HomePage({Key? key}) : super(key: key);
 
@@ -65,7 +65,7 @@ class _HomePageState extends State<HomePage> {
                     closedColor: Theme.of(context).canvasColor,
                     openColor: Theme.of(context).canvasColor,
                     closedBuilder: (context, action) => jobCard(
-                          jobNo: "${reservations[index].reservationId}",
+                          jobNo: "${reservations[index].reservationNumber}",
                           isDetail: false,
                           puTime: reservations[index].pickupTime,
                           duData: reservations[index].reservationDo,
@@ -73,7 +73,7 @@ class _HomePageState extends State<HomePage> {
                           paxData: reservations[index].passengerName,
                           paxPhone: reservations[index].passengerPhone,
                           resNo: "${reservations[index].reservationNumber}",
-                          puDataAddress: reservations[index].pu,
+                          puDataAddress: reservations[index].hotelAddress,
                           puData: reservations[index].pu,
                         ),
                     openBuilder: (context, action) => JobDetails(
@@ -236,14 +236,17 @@ class _jobCardState extends State<jobCard> {
                 ),
                 dense: true,
               ),
-              ListTile(
-                leading: AutoSizeText("Pax. Phone:"),
-                title: AutoSizeText(
-                  widget.paxPhone!,
-                  softWrap: true,
-                  style: Theme.of(context).textTheme.subtitle1,
+              GestureDetector(
+                onTap: () =>launch("tel://214324234"),
+                child: ListTile(
+                  leading: AutoSizeText("Pax. Phone:"),
+                  title: AutoSizeText(
+                    widget.paxPhone!,
+                    softWrap: true,
+                    style: Theme.of(context).textTheme.subtitle1,
+                  ),
+                  dense: true,
                 ),
-                dense: true,
               ),
               widget.isDetail!
                   ? Column(

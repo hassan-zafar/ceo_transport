@@ -17,7 +17,7 @@
 //   static const String _isAdmin = 'ISADMIN';
 //   static const String _androidNotificationToken = 'androidNotificationToken';
 
-//   //s
+//   //
 //   // Setters
 //   //
 //   static Future<void> setUserUID(String uid) async =>

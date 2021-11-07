@@ -1,106 +1,109 @@
+// To parse this JSON data, do
+//
+//     final driverDetails = driverDetailsFromJson(jsonString);
+
 import 'dart:convert';
 
-DriverDetails driverDetailsFromJson(String str) =>
-    DriverDetails.fromJson(json.decode(str));
+DriverDetails driverDetailsFromJson(String str) => DriverDetails.fromJson(json.decode(str));
 
 String driverDetailsToJson(DriverDetails data) => json.encode(data.toJson());
 
 class DriverDetails {
-  DriverDetails({
-    this.success,
-  });
+    DriverDetails({
+        this.success,
+    });
 
-  Success? success;
+    Success? success;
 
-  factory DriverDetails.fromJson(Map<String, dynamic> json) => DriverDetails(
+    factory DriverDetails.fromJson(Map<String, dynamic> json) => DriverDetails(
         success: Success.fromJson(json["success"]),
-      );
+    );
 
-  Map<String, dynamic> toJson() => {
+    Map<String, dynamic> toJson() => {
         "success": success!.toJson(),
-      };
+    };
 }
 
 class Success {
-  Success({
-    this.driver,
-    this.reservations,
-  });
+    Success({
+        this.driver,
+        this.reservations,
+    });
 
-  Driver? driver;
-  List<Reservation>? reservations;
+    Driver? driver;
+    List<Reservation>? reservations;
 
-  factory Success.fromJson(Map<String, dynamic> json) => Success(
+    factory Success.fromJson(Map<String, dynamic> json) => Success(
         driver: Driver.fromJson(json["driver"]),
-        reservations: List<Reservation>.from(
-            json["reservations"].map((x) => Reservation.fromJson(x))),
-      );
+        reservations: List<Reservation>.from(json["reservations"].map((x) => Reservation.fromJson(x))),
+    );
 
-  Map<String, dynamic> toJson() => {
+    Map<String, dynamic> toJson() => {
         "driver": driver!.toJson(),
-        "reservations":
-            List<dynamic>.from(reservations!.map((x) => x.toJson())),
-      };
+        "reservations": List<dynamic>.from(reservations!.map((x) => x.toJson())),
+    };
 }
 
 class Driver {
-  Driver({
-    this.id,
-    this.name,
-    this.email,
-    this.emailVerifiedAt,
-    this.createdAt,
-    this.updatedAt,
-  });
+    Driver({
+        this.id,
+        this.name,
+        this.email,
+        this.emailVerifiedAt,
+        this.createdAt,
+        this.updatedAt,
+    });
 
-  int? id;
-  String? name;
-  String? email;
-  DateTime? emailVerifiedAt;
-  DateTime? createdAt;
-  DateTime? updatedAt;
+    int ?id;
+    String ?name;
+    String ?email;
+    dynamic emailVerifiedAt;
+    DateTime ?createdAt;
+    DateTime ?updatedAt;
 
-  factory Driver.fromJson(Map<String, dynamic> json) => Driver(
+    factory Driver.fromJson(Map<String, dynamic> json) => Driver(
         id: json["id"],
         name: json["name"],
         email: json["email"],
         emailVerifiedAt: json["email_verified_at"],
         createdAt: DateTime.parse(json["created_at"]),
         updatedAt: DateTime.parse(json["updated_at"]),
-      );
+    );
 
-  Map<String, dynamic> toJson() => {
+    Map<String, dynamic> toJson() => {
         "id": id,
         "name": name,
         "email": email,
         "email_verified_at": emailVerifiedAt,
         "created_at": createdAt!.toIso8601String(),
         "updated_at": updatedAt!.toIso8601String(),
-      };
+    };
 }
 
 class Reservation {
-  Reservation({
-    this.reservationId,
-    this.reservationNumber,
-    this.passengerName,
-    this.passengers,
-    this.passengerPhone,
-    this.pickupTime,
-    this.pu,
-    this.reservationDo,
-  });
+    Reservation({
+        this.reservationId,
+        this.reservationNumber,
+        this.passengerName,
+        this.passengers,
+        this.passengerPhone,
+        this.pickupTime,
+        this.pu,
+        this.hotelAddress,
+        this.reservationDo,
+    });
 
-  int? reservationId;
-  int? reservationNumber;
-  String? passengerName;
-  int? passengers;
-  String? passengerPhone;
-  String? pickupTime;
-  String? pu;
-  String? reservationDo;
+    int? reservationId;
+    int ?reservationNumber;
+    String? passengerName;
+    int? passengers;
+    String? passengerPhone;
+    String? pickupTime;
+    String? pu;
+    String ?hotelAddress;
+    String ?reservationDo;
 
-  factory Reservation.fromJson(Map<String, dynamic> json) => Reservation(
+    factory Reservation.fromJson(Map<String, dynamic> json) => Reservation(
         reservationId: json["reservation_id"],
         reservationNumber: json["reservation_number"],
         passengerName: json["passenger_name"],
@@ -108,10 +111,11 @@ class Reservation {
         passengerPhone: json["passenger_phone"],
         pickupTime: json["pickup_time"],
         pu: json["pu"],
+        hotelAddress: json["hotel_address"],
         reservationDo: json["do"],
-      );
+    );
 
-  Map<String, dynamic> toJson() => {
+    Map<String, dynamic> toJson() => {
         "reservation_id": reservationId,
         "reservation_number": reservationNumber,
         "passenger_name": passengerName,
@@ -119,6 +123,7 @@ class Reservation {
         "passenger_phone": passengerPhone,
         "pickup_time": pickupTime,
         "pu": pu,
+        "hotel_address": hotelAddress,
         "do": reservationDo,
-      };
+    };
 }

@@ -21,14 +21,14 @@ class _JobDetailsState extends State<JobDetails> {
               Hero(
                   tag: "card",
                   child: jobCard(
-                    jobNo: "${widget.jobDetails!.reservationId!}",
+                    jobNo: "${widget.jobDetails!.reservationNumber!}",
                     isDetail: true,
                     puTime: widget.jobDetails!.pickupTime!,
                     duData: widget.jobDetails!.reservationDo!,
                     paxData: widget.jobDetails!.passengerName!,
                     paxPhone: widget.jobDetails!.passengerPhone!,
                     pax2: "${widget.jobDetails!.passengers!}",
-                    puDataAddress: widget.jobDetails!.pu,
+                    puDataAddress: widget.jobDetails!.hotelAddress,
                     resNo: "${widget.jobDetails!.reservationId!}",
                     puData: widget.jobDetails!.pu!,
                   ))
