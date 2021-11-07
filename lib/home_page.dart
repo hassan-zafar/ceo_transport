@@ -5,7 +5,8 @@ import 'package:ceo_transport/job_details.dart';
 import 'package:ceo_transport/models/driver_details.dart';
 import 'package:ceo_transport/screens/auth_screens/login.dart';
 import 'package:flutter/material.dart';
-import 'url';
+import 'package:url_launcher/url_launcher.dart';
+
 class HomePage extends StatefulWidget {
   HomePage({Key? key}) : super(key: key);
 
@@ -237,7 +238,7 @@ class _jobCardState extends State<jobCard> {
                 dense: true,
               ),
               GestureDetector(
-                onTap: () =>launch("tel://214324234"),
+                onTap: () => launch("tel://214324234"),
                 child: ListTile(
                   leading: AutoSizeText("Pax. Phone:"),
                   title: AutoSizeText(
@@ -305,6 +306,7 @@ class _jobCardState extends State<jobCard> {
                                         setState(() {
                                           latePuClicked = true;
                                         });
+                                        showDialog();
                                       },
                                       child: Container(
                                           margin: EdgeInsets.all(12),
@@ -338,50 +340,6 @@ class _jobCardState extends State<jobCard> {
                                     ))),
                           ],
                         ),
-                        latePuClicked!
-                            ? Column(
-                                children: [
-                                  Container(
-                                      width: double.maxFinite,
-                                      margin: EdgeInsets.all(12),
-                                      decoration: BoxDecoration(
-                                          color: Colors.purple,
-                                          borderRadius:
-                                              BorderRadius.circular(12)),
-                                      padding: EdgeInsets.only(
-                                          top: 12,
-                                          bottom: 12,
-                                          left: 28,
-                                          right: 28),
-                                      child: AutoSizeText(
-                                        "Late Driver",
-                                        textAlign: TextAlign.center,
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodyText1,
-                                      )),
-                                  Container(
-                                      width: double.maxFinite,
-                                      margin: EdgeInsets.all(12),
-                                      decoration: BoxDecoration(
-                                          color: Colors.blue,
-                                          borderRadius:
-                                              BorderRadius.circular(12)),
-                                      padding: EdgeInsets.only(
-                                          top: 12,
-                                          bottom: 12,
-                                          left: 28,
-                                          right: 28),
-                                      child: AutoSizeText(
-                                        "Late PAX   ",
-                                        textAlign: TextAlign.center,
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodyText1,
-                                      )),
-                                ],
-                              )
-                            : Container(),
                         Container(
                             margin: EdgeInsets.all(8),
                             width: double.maxFinite,
@@ -412,6 +370,40 @@ class _jobCardState extends State<jobCard> {
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  showDialog() {
+    Dialog(
+      child: Row(
+        children: [
+          Container(
+              width: double.maxFinite,
+              margin: EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                  color: Colors.purple,
+                  borderRadius: BorderRadius.circular(12)),
+              padding:
+                  EdgeInsets.only(top: 12, bottom: 12, left: 28, right: 28),
+              child: AutoSizeText(
+                "Late Driver",
+                textAlign: TextAlign.center,
+                style: Theme.of(context).textTheme.bodyText1,
+              )),
+          Container(
+              width: double.maxFinite,
+              margin: EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                  color: Colors.blue, borderRadius: BorderRadius.circular(12)),
+              padding:
+                  EdgeInsets.only(top: 12, bottom: 12, left: 28, right: 28),
+              child: AutoSizeText(
+                "Late PAX   ",
+                textAlign: TextAlign.center,
+                style: Theme.of(context).textTheme.bodyText1,
+              )),
+        ],
       ),
     );
   }
