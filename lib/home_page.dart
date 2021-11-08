@@ -1,5 +1,6 @@
 import 'package:animations/animations.dart';
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:ceo_transport/APIs/reservationAPI.dart';
 import 'package:ceo_transport/constants/constants.dart';
 import 'package:ceo_transport/job_details.dart';
 import 'package:ceo_transport/models/driver_details.dart';
@@ -48,9 +49,33 @@ class _HomePageState extends State<HomePage> {
                   children: [
                     Icon(Icons.bakery_dining_outlined),
                     AutoSizeText(
-                      "This is the list of jobs available assigned to you today $formattedDate",
+                      "This is the list of jobs assigned to you today $formattedDate",
                       textAlign: TextAlign.center,
                       maxLines: 2,
+                      softWrap: true,
+                    ),
+                  ],
+                ),
+              ),
+            )),
+            Center(
+                child: Card(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20)),
+              margin: EdgeInsets.all(12),
+              child: Padding(
+                padding: const EdgeInsets.all(12.0),
+                child: Column(
+                  children: [
+                    Icon(
+                      Icons.add_alert_outlined,
+                      color: Colors.red,
+                    ),
+                    AutoSizeText(
+                      "Please notify dispatch immediately if you are unable to fulfull",
+                      textAlign: TextAlign.center,
+                      maxLines: 2,
+                      // style: TextStyle(color: Colors.red),
                       softWrap: true,
                     ),
                   ],
@@ -163,11 +188,8 @@ class jobCard extends StatefulWidget {
 }
 
 class _jobCardState extends State<jobCard> {
-  bool? latePuClicked = false;
-
   @override
   Widget build(BuildContext context) {
-    print(latePuClicked);
     return Padding(
       padding: const EdgeInsets.all(12.0),
       child: Card(
@@ -207,11 +229,11 @@ class _jobCardState extends State<jobCard> {
               ListTile(
                 leading: AutoSizeText("Pax:"),
                 title: AutoSizeText(
-                  widget.paxData!,
+                  widget.paxData!.toUpperCase(),
                   softWrap: true,
                   style: Theme.of(context).textTheme.subtitle1,
                 ),
-                trailing: AutoSizeText("# ${widget.pax2}"),
+                trailing: AutoSizeText("#PAX ${widget.pax2}"),
                 dense: true,
               ),
               ListTile(
@@ -238,13 +260,13 @@ class _jobCardState extends State<jobCard> {
                 dense: true,
               ),
               GestureDetector(
-                onTap: () => launch("tel://214324234"),
+                onTap: () => launch("tel://${widget.paxPhone}"),
                 child: ListTile(
                   leading: AutoSizeText("Pax. Phone:"),
                   title: AutoSizeText(
                     widget.paxPhone!,
                     softWrap: true,
-                    style: Theme.of(context).textTheme.subtitle1,
+                    style: Theme.of(context).textTheme.overline,
                   ),
                   dense: true,
                 ),
@@ -255,89 +277,112 @@ class _jobCardState extends State<jobCard> {
                         Row(
                           children: [
                             Expanded(
-                                child: Container(
-                                    margin: EdgeInsets.all(12),
-                                    decoration: BoxDecoration(
-                                        color: Colors.yellow,
-                                        borderRadius:
-                                            BorderRadius.circular(12)),
-                                    padding: EdgeInsets.all(12),
-                                    child: AutoSizeText(
-                                      "En Route",
-                                      textAlign: TextAlign.center,
-                                      style:
-                                          Theme.of(context).textTheme.bodyText1,
-                                    ))),
+                                child: GestureDetector(
+                              onTap: () {
+                                ReservationAPI().setStatus(
+                                    reservationNo: widget.resNo,
+                                    token: token!,
+                                    type: "en_route");
+                              },
+                              child: Container(
+                                  margin: EdgeInsets.all(12),
+                                  decoration: BoxDecoration(
+                                      color: Colors.yellow,
+                                      borderRadius: BorderRadius.circular(12)),
+                                  padding: EdgeInsets.all(12),
+                                  child: AutoSizeText(
+                                    "En Route",
+                                    textAlign: TextAlign.center,
+                                    style:
+                                        Theme.of(context).textTheme.bodyText1,
+                                  )),
+                            )),
                             Expanded(
-                                child: Container(
-                                    margin: EdgeInsets.all(8),
-                                    decoration: BoxDecoration(
-                                        color: Colors.yellow,
-                                        borderRadius:
-                                            BorderRadius.circular(12)),
-                                    padding: EdgeInsets.all(12),
-                                    child: AutoSizeText(
-                                      "On Local",
-                                      textAlign: TextAlign.center,
-                                      style:
-                                          Theme.of(context).textTheme.bodyText1,
-                                    ))),
+                                child: GestureDetector(
+                              onTap: () {
+                                ReservationAPI().setStatus(
+                                    reservationNo: widget.resNo,
+                                    token: token!,
+                                    type: "on_location");
+                              },
+                              child: Container(
+                                  margin: EdgeInsets.all(8),
+                                  decoration: BoxDecoration(
+                                      color: Colors.yellow,
+                                      borderRadius: BorderRadius.circular(12)),
+                                  padding: EdgeInsets.all(12),
+                                  child: AutoSizeText(
+                                    "On Local",
+                                    textAlign: TextAlign.center,
+                                    style:
+                                        Theme.of(context).textTheme.bodyText1,
+                                  )),
+                            )),
                           ],
                         ),
-                        Container(
-                            margin: EdgeInsets.all(8),
-                            width: double.maxFinite,
-                            decoration: BoxDecoration(
-                                color: Colors.yellow.shade700,
-                                borderRadius: BorderRadius.circular(12)),
-                            padding: EdgeInsets.all(12),
-                            child: AutoSizeText(
-                              "Successful Rendezvous",
-                              textAlign: TextAlign.center,
-                              style: Theme.of(context).textTheme.bodyText1,
-                            )),
+                        GestureDetector(
+                          onTap: () {
+                            ReservationAPI().setStatus(
+                                reservationNo: widget.resNo,
+                                token: token!,
+                                type: "invehicle");
+                          },
+                          child: Container(
+                              margin: EdgeInsets.all(8),
+                              width: double.maxFinite,
+                              decoration: BoxDecoration(
+                                  color: Colors.yellow.shade700,
+                                  borderRadius: BorderRadius.circular(12)),
+                              padding: EdgeInsets.all(12),
+                              child: AutoSizeText(
+                                "Successful Rendezvous",
+                                textAlign: TextAlign.center,
+                                style: Theme.of(context).textTheme.bodyText1,
+                              )),
+                        ),
                         Row(
                           children: [
-                            latePuClicked!
-                                ? Container()
-                                : Expanded(
-                                    child: InkWell(
-                                      onTap: () {
-                                        setState(() {
-                                          latePuClicked = true;
-                                        });
-                                        showDialog();
-                                      },
-                                      child: Container(
-                                          margin: EdgeInsets.all(12),
-                                          decoration: BoxDecoration(
-                                              color: Colors.red,
-                                              borderRadius:
-                                                  BorderRadius.circular(12)),
-                                          padding: EdgeInsets.all(12),
-                                          child: AutoSizeText(
-                                            "Late PU",
-                                            textAlign: TextAlign.center,
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .bodyText1,
-                                          )),
-                                    ),
-                                  ),
                             Expanded(
+                              child: InkWell(
+                                onTap: () {
+                                  showButtons(context);
+                                },
                                 child: Container(
-                                    margin: EdgeInsets.all(8),
+                                    margin: EdgeInsets.all(12),
                                     decoration: BoxDecoration(
                                         color: Colors.red,
                                         borderRadius:
                                             BorderRadius.circular(12)),
                                     padding: EdgeInsets.all(12),
                                     child: AutoSizeText(
-                                      "No Show",
+                                      "Late PU",
                                       textAlign: TextAlign.center,
                                       style:
                                           Theme.of(context).textTheme.bodyText1,
-                                    ))),
+                                    )),
+                              ),
+                            ),
+                            Expanded(
+                                child: GestureDetector(
+                              onTap: () {
+                                ReservationAPI().setStatus(
+                                    reservationNo: widget.resNo,
+                                    token: token!,
+                                    type: "no_show");
+                              },
+                              child: Container(
+                                  margin: EdgeInsets.all(8),
+                                  decoration: BoxDecoration(
+                                      color: Colors.red,
+                                      borderRadius: BorderRadius.circular(12)),
+                                  padding: EdgeInsets.all(12),
+                                  child: AutoSizeText(
+                                    "No Show",
+                                    textAlign: TextAlign.center,
+                                    style:
+                                        Theme.of(context).textTheme.bodyText1,
+                                  )),
+                            )),
                           ],
                         ),
                         Container(
@@ -352,18 +397,26 @@ class _jobCardState extends State<jobCard> {
                               textAlign: TextAlign.center,
                               style: Theme.of(context).textTheme.bodyText1,
                             )),
-                        Container(
-                            margin: EdgeInsets.all(8),
-                            width: double.maxFinite,
-                            decoration: BoxDecoration(
-                                color: Colors.green,
-                                borderRadius: BorderRadius.circular(12)),
-                            padding: EdgeInsets.all(12),
-                            child: AutoSizeText(
-                              "Drop Off Complete",
-                              textAlign: TextAlign.center,
-                              style: Theme.of(context).textTheme.bodyText1,
-                            )),
+                        GestureDetector(
+                          onTap: () {
+                            ReservationAPI().setStatus(
+                                reservationNo: widget.resNo,
+                                token: token!,
+                                type: "done");
+                          },
+                          child: Container(
+                              margin: EdgeInsets.all(8),
+                              width: double.maxFinite,
+                              decoration: BoxDecoration(
+                                  color: Colors.green,
+                                  borderRadius: BorderRadius.circular(12)),
+                              padding: EdgeInsets.all(12),
+                              child: AutoSizeText(
+                                "Drop Off Complete",
+                                textAlign: TextAlign.center,
+                                style: Theme.of(context).textTheme.bodyText1,
+                              )),
+                        ),
                       ],
                     )
                   : Container()
@@ -374,37 +427,60 @@ class _jobCardState extends State<jobCard> {
     );
   }
 
-  showDialog() {
-    Dialog(
-      child: Row(
-        children: [
-          Container(
-              width: double.maxFinite,
-              margin: EdgeInsets.all(12),
-              decoration: BoxDecoration(
-                  color: Colors.purple,
-                  borderRadius: BorderRadius.circular(12)),
-              padding:
-                  EdgeInsets.only(top: 12, bottom: 12, left: 28, right: 28),
-              child: AutoSizeText(
-                "Late Driver",
-                textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.bodyText1,
-              )),
-          Container(
-              width: double.maxFinite,
-              margin: EdgeInsets.all(12),
-              decoration: BoxDecoration(
-                  color: Colors.blue, borderRadius: BorderRadius.circular(12)),
-              padding:
-                  EdgeInsets.only(top: 12, bottom: 12, left: 28, right: 28),
-              child: AutoSizeText(
-                "Late PAX   ",
-                textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.bodyText1,
-              )),
-        ],
-      ),
+  showButtons(
+    BuildContext constext,
+  ) {
+    showDialog(
+      context: constext,
+      builder: (context) {
+        return Dialog(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              GestureDetector(
+                onTap: () {
+                  ReservationAPI().setStatus(
+                      reservationNo: widget.resNo,
+                      token: token!,
+                      type: "wait_time");
+                },
+                child: Container(
+                    margin: EdgeInsets.all(12),
+                    decoration: BoxDecoration(
+                        color: Colors.purple,
+                        borderRadius: BorderRadius.circular(12)),
+                    padding: EdgeInsets.only(
+                        top: 12, bottom: 12, left: 12, right: 12),
+                    child: AutoSizeText(
+                      "Late Driver",
+                      textAlign: TextAlign.center,
+                      style: Theme.of(context).textTheme.bodyText1,
+                    )),
+              ),
+              GestureDetector(
+                onTap: () {
+                  ReservationAPI().setStatus(
+                      reservationNo: widget.resNo,
+                      token: token!,
+                      type: "wait_time_passenger");
+                },
+                child: Container(
+                    margin: EdgeInsets.all(12),
+                    decoration: BoxDecoration(
+                        color: Colors.blue,
+                        borderRadius: BorderRadius.circular(12)),
+                    padding: EdgeInsets.only(
+                        top: 12, bottom: 12, left: 12, right: 12),
+                    child: AutoSizeText(
+                      "Late PAX   ",
+                      textAlign: TextAlign.center,
+                      style: Theme.of(context).textTheme.bodyText1,
+                    )),
+              ),
+            ],
+          ),
+        );
+      },
     );
   }
 }

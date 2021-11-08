@@ -1,8 +1,7 @@
-import 'package:ceo_transport/models/driver_details.dart';
 import 'package:http/http.dart' as http;
 
 class ReservationAPI {
-  Future setWaitTime(
+  Future setStatus(
       {required var reservationNo,
       required String token,
       required String type}) async {
@@ -23,8 +22,10 @@ class ReservationAPI {
 
     if (response.statusCode == 200) {
       print(await response.stream.bytesToString());
+      return true;
     } else {
       print(response.reasonPhrase);
+      return false;
     }
   }
 }

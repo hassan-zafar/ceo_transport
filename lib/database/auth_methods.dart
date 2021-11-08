@@ -1,4 +1,5 @@
 import 'package:ceo_transport/APIs/driver_api.dart';
+import 'package:ceo_transport/constants/constants.dart';
 import 'package:ceo_transport/models/login_token.dart';
 import 'package:ceo_transport/tools/custom_toast.dart';
 import 'package:http/http.dart' as http;
@@ -19,6 +20,7 @@ class AuthMethod {
 
         LoginToken loginToken = loginTokenFromJson(res);
         print(loginToken.success!.token!);
+        token = loginToken.success!.token!;
         return await DriverApi().getUser(loginToken.success!.token!);
       } else {
         print(response.reasonPhrase);
