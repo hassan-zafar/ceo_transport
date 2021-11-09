@@ -114,11 +114,11 @@ class _ForgetPasswordPageState extends State<ForgetPasswordPage> {
               ],
             ),
           ),
-          bottomSheet: buildSignUpLoginText(
-              context: context,
-              text1: "Don't have an account ",
-              text2: "Sign Up",
-              moveToLogIn: false),
+          //   bottomSheet: buildSignUpLoginText(
+          //       context: context,
+          //       text1: "Don't have an account ",
+          //       text2: "Sign Up",
+          //       moveToLogIn: false),
         ),
       ),
     );
