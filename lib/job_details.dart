@@ -1,5 +1,5 @@
-import 'package:ceo_transport/home_page.dart';
 import 'package:ceo_transport/models/driver_details.dart';
+import 'package:ceo_transport/tools/job_card.dart';
 import 'package:flutter/material.dart';
 
 class JobDetails extends StatefulWidget {
@@ -15,6 +15,10 @@ class _JobDetailsState extends State<JobDetails> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        appBar: AppBar(
+          elevation: 0,
+          backgroundColor: Colors.transparent,
+        ),
         body: SingleChildScrollView(
           child: Column(
             children: [

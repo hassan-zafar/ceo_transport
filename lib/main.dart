@@ -20,7 +20,10 @@ class MyApp extends StatelessWidget {
             bodyText2: TextStyle(fontSize: 20, color: Colors.yellow.shade800),
             subtitle1: TextStyle(fontSize: 18),
             overline: TextStyle(
-                fontSize: 18, color: Colors.blue, fontStyle: FontStyle.italic),
+              fontSize: 24,
+              color: Colors.blue,
+              fontStyle: FontStyle.italic,
+            ),
             subtitle2: TextStyle(fontSize: 20),
             bodyText1: TextStyle(fontSize: 20, color: Colors.black),
           ),

@@ -1,7 +1,7 @@
 import 'package:http/http.dart' as http;
 
 class ReservationAPI {
-  Future setStatus(
+  Future<bool> setStatus(
       {required var reservationNo,
       required String token,
       required String type}) async {
