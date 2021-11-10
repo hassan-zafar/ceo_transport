@@ -93,38 +93,30 @@ class _jobCardState extends State<jobCard> {
                     dense: true,
                   ),
                   ListTile(
-                    leading: AutoSizeText(
-                        widget.type == "Airport Arrival" ? "PU:" : "DO"),
+                    leading: AutoSizeText("PU:"),
                     title: AutoSizeText(
-                      widget.type == "Airport Arrival"
-                          ? "Airport Arrival\n${widget.puData!}"
-                          : widget.duData!,
+                      "${widget.type} \n${widget.puData!}",
                       softWrap: true,
                       style: Theme.of(context).textTheme.subtitle1,
                     ),
-                    subtitle: AutoSizeText(
-                      widget.type == "Airport Arrival"
-                          ? ""
-                          : widget.puDataAddress!,
-                      softWrap: true,
-                      style: Theme.of(context).textTheme.subtitle1,
-                    ),
+                    // subtitle: AutoSizeText(
+                    //   widget.type == "Airport Arrival"
+                    //       ? ""
+                    //       : widget.puDataAddress!,
+                    //   softWrap: true,
+                    //   style: Theme.of(context).textTheme.subtitle1,
+                    // ),
                     dense: true,
                   ),
                   ListTile(
-                    leading: AutoSizeText(
-                        widget.type == "Airport Arrival" ? "DO:" : "PU:"),
+                    leading: AutoSizeText("DO:"),
                     title: AutoSizeText(
-                      widget.type == "Airport Arrival"
-                          ? widget.duData!
-                          : "Airport Arrival\n${widget.puData!}",
+                      widget.duData!,
                       softWrap: true,
                       style: Theme.of(context).textTheme.subtitle1,
                     ),
                     subtitle: AutoSizeText(
-                      widget.type == "Airport Arrival"
-                          ? widget.hotelAddress!
-                          : "",
+                      widget.hotelAddress!,
                       softWrap: true,
                       style: Theme.of(context).textTheme.subtitle1,
                     ),
