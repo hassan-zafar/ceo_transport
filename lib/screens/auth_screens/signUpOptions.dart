@@ -10,7 +10,6 @@ class SignUpPage extends StatefulWidget {
 }
 
 class _SignUpPageState extends State<SignUpPage> {
-  String? _countryPhoneCode;
   final _textFormKey = GlobalKey<FormState>();
 
   TextEditingController _nameController = TextEditingController();
@@ -25,7 +24,6 @@ class _SignUpPageState extends State<SignUpPage> {
   String registerId = Uuid().v4();
   String socialId = Uuid().v4();
 
-  bool _isLoading = false;
 
   //final currentUserStored = GetStorage();
   @override

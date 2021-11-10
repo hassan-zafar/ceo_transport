@@ -9,7 +9,6 @@ class UserLocalData {
 
   static const String _uidKey = 'UIDKEY';
   static const String _emailKey = 'EMAILKEY';
-  static const String _displayNameKey = 'DISPLAYNAMEKEY';
   static const String _phoneNumber = 'PHONENUMBER';
   static const String _imageUrlKey = 'IMAGEURLKEY';
   static const String _createdAt = 'CREATEDAT';

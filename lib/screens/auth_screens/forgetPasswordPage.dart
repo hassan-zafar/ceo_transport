@@ -12,8 +12,6 @@ class _ForgetPasswordPageState extends State<ForgetPasswordPage> {
   TextEditingController _emailController = TextEditingController();
   final _textFormKey = GlobalKey<FormState>();
 
-  bool _isLoading = false;
-
   @override
   Widget build(BuildContext context) {
     return SafeArea(

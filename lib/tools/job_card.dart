@@ -97,7 +97,7 @@ class _jobCardState extends State<jobCard> {
                     title: AutoSizeText(
                       widget.type == "Airport Arrival"
                           ? widget.type!
-                          : widget.duData!,
+                          : widget.puData!,
                       softWrap: true,
                       style: Theme.of(context).textTheme.subtitle1,
                     ),
@@ -121,8 +121,8 @@ class _jobCardState extends State<jobCard> {
                     ),
                     subtitle: AutoSizeText(
                       widget.type == "Airport Arrival"
-                          ? widget.puDataAddress!
-                          : widget.puData!,
+                          ? widget.hotelAddress!
+                          : widget.duData!,
                       softWrap: true,
                       style: Theme.of(context).textTheme.subtitle1,
                     ),

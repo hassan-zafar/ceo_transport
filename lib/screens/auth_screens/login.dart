@@ -24,7 +24,6 @@ class _LoginPageState extends State<LoginPage> {
   TextEditingController _emailController = TextEditingController();
   final _textFormKey = GlobalKey<FormState>();
 
-  bool _isLoading = false;
   @override
   void initState() {
     super.initState();

@@ -9,8 +9,7 @@ class AuthMethod {
     try {
       var request = http.MultipartRequest(
           'POST', Uri.parse('https://terryd8.sg-host.com/api/login'));
-      request.fields
-          .addAll({'email': "lroberts@limobermuda.com", 'password': password});
+      request.fields.addAll({'email': email, 'password': password});
 // "lroberts@limobermuda.com"
       http.StreamedResponse response = await request.send();
 
