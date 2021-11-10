@@ -24,13 +24,15 @@ class _JobDetailsState extends State<JobDetails> {
           child: Column(
             children: [
               Hero(
-                  tag: "card",
+                  tag: widget.index!,
                   child: jobCard(
                     jobNo: widget.index!,
                     isDetail: true,
                     puTime: widget.jobDetails!.pickupTime!,
                     duData: widget.jobDetails!.reservationDo!,
                     paxData: widget.jobDetails!.passengerName!,
+                    hotelAddress: widget.jobDetails!.hotelAddress!,
+                    type: widget.jobDetails!.type!,
                     paxPhone: widget.jobDetails!.passengerPhone!,
                     pax2: "${widget.jobDetails!.passengers!}",
                     puDataAddress: widget.jobDetails!.hotelAddress,
