@@ -1,6 +1,5 @@
 import 'package:animations/animations.dart';
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:ceo_transport/APIs/reservationAPI.dart';
 import 'package:ceo_transport/constants/constants.dart';
 import 'package:ceo_transport/job_details.dart';
 import 'package:ceo_transport/models/driver_details.dart';
@@ -17,11 +16,27 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  List monthsNames = [
+    'Jan',
+    'Feb',
+    'Mar',
+    'Apr',
+    'May',
+    'June',
+    'July',
+    'Aug',
+    'Sept',
+    'Oct',
+    'Nov',
+    'Dec'
+  ];
   @override
   Widget build(BuildContext context) {
     String dateString = DateTime.now().toString();
     var dateparse = DateTime.parse(dateString);
-    var formattedDate = "${dateparse.day}-${dateparse.month}-${dateparse.year}";
+
+    var formattedDate =
+        "${monthsNames[dateparse.month]}. ${dateparse.day}, ${dateparse.year}";
 
     Driver driverData = driverDetails!.success!.driver!;
     List<Reservation> reservations = driverDetails!.success!.reservations!;
@@ -92,7 +107,7 @@ class _HomePageState extends State<HomePage> {
                     closedColor: Theme.of(context).canvasColor,
                     openColor: Theme.of(context).canvasColor,
                     closedBuilder: (context, action) => jobCard(
-                          jobNo: "${reservations[index].reservationNumber}",
+                          jobNo: "${index + 1}",
                           isDetail: false,
                           hotelAddress: reservations[index].hotelAddress,
                           puTime: reservations[index].pickupTime,
@@ -107,6 +122,7 @@ class _HomePageState extends State<HomePage> {
                         ),
                     openBuilder: (context, action) => JobDetails(
                           jobDetails: reservations[index],
+                          index: "${index + 1}",
                         ));
               },
             ),

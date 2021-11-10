@@ -1,6 +1,7 @@
 import 'package:ceo_transport/constants/commonUIFunctions.dart';
 import 'package:ceo_transport/constants/constants.dart';
 import 'package:ceo_transport/database/auth_methods.dart';
+import 'package:ceo_transport/database/user_local_data.dart';
 import 'package:ceo_transport/screens/auth_screens/forgetPasswordPage.dart';
 import 'package:ceo_transport/tools/custom_toast.dart';
 import 'package:ceo_transport/tools/show_loading.dart';
@@ -9,6 +10,9 @@ import 'package:flutter/material.dart';
 import '../../home_page.dart';
 
 class LoginPage extends StatefulWidget {
+  final String? email;
+  final String? password;
+  LoginPage({this.email, this.password});
   @override
   _LoginPageState createState() => _LoginPageState();
 }
@@ -21,6 +25,15 @@ class _LoginPageState extends State<LoginPage> {
   final _textFormKey = GlobalKey<FormState>();
 
   bool _isLoading = false;
+  @override
+  void initState() {
+    super.initState();
+    if (widget.email != null && widget.password != null) {
+      _emailController = TextEditingController(text: widget.email!);
+      _passwordController = TextEditingController(text: widget.password!);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -164,13 +177,19 @@ class _LoginPageState extends State<LoginPage> {
                               );
                               if (_driver != null) {
                                 driverDetails = _driver;
+                                UserLocalData.setIsLoggedIn(true);
+                                UserLocalData.setUserEmail(
+                                    _emailController.text);
+                                UserLocalData.setUserPassword(
+                                    _passwordController.text);
                                 Navigator.pushReplacement(
                                     context,
                                     MaterialPageRoute(
                                       builder: (context) => HomePage(),
                                     ));
                               } else {
-                                Navigator.of(context).pop();
+                                _emailController.clear();
+                                _passwordController.clear();
                                 CustomToast.errorToast(
                                     message: 'email OR password in incorrect');
                               }

@@ -1,7 +1,11 @@
+import 'package:ceo_transport/database/user_local_data.dart';
 import 'package:ceo_transport/screens/auth_screens/login.dart';
 import 'package:flutter/material.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await UserLocalData.init();
   runApp(const MyApp());
 }
 
@@ -11,7 +15,17 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    bool isLoggedIn = true;
+    UserLocalData.setNotLoggedIn();
+
+    bool isLoggedIn = false;
+    isLoggedIn = UserLocalData.getIsLoggedIn;
+
+    String? email;
+    String? password;
+    if (isLoggedIn) {
+      email = UserLocalData.getUserEmail;
+      password = UserLocalData.getPassword;
+    }
     return MaterialApp(
       title: 'CEO Transport',
       theme: ThemeData(
@@ -28,7 +42,7 @@ class MyApp extends StatelessWidget {
             bodyText1: TextStyle(fontSize: 20, color: Colors.black),
           ),
           primaryColor: Colors.amber),
-      home: LoginPage(),
+      home: LoginPage(email: email, password: password),
     );
   }
 }

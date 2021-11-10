@@ -2,12 +2,12 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:ceo_transport/APIs/reservationAPI.dart';
 import 'package:ceo_transport/constants/constants.dart';
 import 'package:ceo_transport/tools/custom_toast.dart';
-import 'package:ceo_transport/tools/show_loading.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class jobCard extends StatefulWidget {
   final String? jobNo;
+
   final String? puTime;
   final String? resNo;
   final String? paxData;
@@ -64,7 +64,7 @@ class _jobCardState extends State<jobCard> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          AutoSizeText("Job# : ${widget.jobNo!}"),
+                          AutoSizeText("Job# ${widget.jobNo!}"),
                           Row(
                             children: [
                               AutoSizeText(
@@ -95,28 +95,34 @@ class _jobCardState extends State<jobCard> {
                   ListTile(
                     leading: AutoSizeText("PU:"),
                     title: AutoSizeText(
-                      "${widget.type} \n${widget.puData!}",
+                      widget.type == "Airport Arrival"
+                          ? widget.type!
+                          : widget.duData!,
                       softWrap: true,
                       style: Theme.of(context).textTheme.subtitle1,
                     ),
-                    // subtitle: AutoSizeText(
-                    //   widget.type == "Airport Arrival"
-                    //       ? ""
-                    //       : widget.puDataAddress!,
-                    //   softWrap: true,
-                    //   style: Theme.of(context).textTheme.subtitle1,
-                    // ),
+                    subtitle: AutoSizeText(
+                      widget.type == "Airport Arrival"
+                          ? widget.puData!
+                          : widget.hotelAddress!,
+                      softWrap: true,
+                      style: Theme.of(context).textTheme.subtitle1,
+                    ),
                     dense: true,
                   ),
                   ListTile(
                     leading: AutoSizeText("DO:"),
                     title: AutoSizeText(
-                      widget.duData!,
+                      widget.type == "Airport Arrival"
+                          ? widget.duData!
+                          : widget.type!,
                       softWrap: true,
                       style: Theme.of(context).textTheme.subtitle1,
                     ),
                     subtitle: AutoSizeText(
-                      widget.hotelAddress!,
+                      widget.type == "Airport Arrival"
+                          ? widget.puDataAddress!
+                          : widget.puData!,
                       softWrap: true,
                       style: Theme.of(context).textTheme.subtitle1,
                     ),

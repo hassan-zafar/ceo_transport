@@ -4,7 +4,8 @@ import 'package:flutter/material.dart';
 
 class JobDetails extends StatefulWidget {
   final Reservation? jobDetails;
-  const JobDetails({required this.jobDetails});
+  final String? index;
+  const JobDetails({required this.jobDetails, required this.index});
 
   @override
   _JobDetailsState createState() => _JobDetailsState();
@@ -25,7 +26,7 @@ class _JobDetailsState extends State<JobDetails> {
               Hero(
                   tag: "card",
                   child: jobCard(
-                    jobNo: "${widget.jobDetails!.reservationNumber!}",
+                    jobNo: widget.index!,
                     isDetail: true,
                     puTime: widget.jobDetails!.pickupTime!,
                     duData: widget.jobDetails!.reservationDo!,
