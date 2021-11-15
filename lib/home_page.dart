@@ -40,9 +40,8 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     String dateString = DateTime.now().toString();
     var dateparse = DateTime.parse(dateString);
-
     var formattedDate =
-        "${monthsNames[dateparse.month]}. ${dateparse.day}, ${dateparse.year}";
+        "${monthsNames[dateparse.month - 1]}. ${dateparse.day}, ${dateparse.year}";
 
     Driver driverData = driverDetails!.success!.driver!;
     List<Reservation> reservations = driverDetails!.success!.reservations!;
@@ -72,7 +71,7 @@ class _HomePageState extends State<HomePage> {
                     children: [
                       Icon(Icons.bakery_dining_outlined),
                       AutoSizeText(
-                        "This is the list of jobs assigned to you today $formattedDate",
+                        "This is the list of jobs assigned to you today\n $formattedDate",
                         textAlign: TextAlign.center,
                         maxLines: 2,
                         softWrap: true,

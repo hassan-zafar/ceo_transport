@@ -39,7 +39,17 @@ class jobCard extends StatefulWidget {
 
 class _jobCardState extends State<jobCard> {
   bool _isLoading = false;
+  String? currentStatus = 'Not Assigned';
 
+  List buttonSelectedStatus = [
+    'en_route',
+    'on_location',
+    'invehicle',
+    'wait_time',
+    'wait_time_passenger',
+    'no_show',
+    'done'
+  ];
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -145,12 +155,19 @@ class _jobCardState extends State<jobCard> {
                           children: [
                             Row(
                               children: [
+                                Text("Current Status: "),
+                                Text(currentStatus!)
+                              ],
+                            ),
+                            Row(
+                              children: [
                                 Expanded(
                                     child: GestureDetector(
                                   onTap: () {
                                     setState(() {
                                       _isLoading = true;
                                     });
+
                                     ReservationAPI()
                                         .setStatus(
                                             reservationNo: widget.resNo,
@@ -167,6 +184,7 @@ class _jobCardState extends State<jobCard> {
                                     });
                                     setState(() {
                                       _isLoading = false;
+                                      currentStatus = 'en_route';
                                     });
                                   },
                                   child: Container(
@@ -176,13 +194,21 @@ class _jobCardState extends State<jobCard> {
                                           borderRadius:
                                               BorderRadius.circular(12)),
                                       padding: EdgeInsets.all(12),
-                                      child: AutoSizeText(
-                                        "En Route",
-                                        textAlign: TextAlign.center,
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodyText1,
-                                      )),
+                                      child: Row(children: [
+                                        AutoSizeText(
+                                          "En Route",
+                                          textAlign: TextAlign.center,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodyText1,
+                                        ),
+                                        buttonSelectedStatus[0] == currentStatus
+                                            ? Icon(
+                                                Icons.done,
+                                                size: 14,
+                                              )
+                                            : Container(),
+                                      ])),
                                 )),
                                 Expanded(
                                     child: GestureDetector(
@@ -206,22 +232,34 @@ class _jobCardState extends State<jobCard> {
                                     });
                                     setState(() {
                                       _isLoading = false;
+                                      currentStatus = 'on_location';
                                     });
                                   },
                                   child: Container(
-                                      margin: EdgeInsets.all(8),
-                                      decoration: BoxDecoration(
-                                          color: Colors.yellow,
-                                          borderRadius:
-                                              BorderRadius.circular(12)),
-                                      padding: EdgeInsets.all(12),
-                                      child: AutoSizeText(
-                                        "On Local",
-                                        textAlign: TextAlign.center,
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodyText1,
-                                      )),
+                                    margin: EdgeInsets.all(8),
+                                    decoration: BoxDecoration(
+                                        color: Colors.yellow,
+                                        borderRadius:
+                                            BorderRadius.circular(12)),
+                                    padding: EdgeInsets.all(12),
+                                    child: Row(
+                                      children: [
+                                        AutoSizeText(
+                                          "On Local",
+                                          textAlign: TextAlign.center,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodyText1,
+                                        ),
+                                        buttonSelectedStatus[1] == currentStatus
+                                            ? Icon(
+                                                Icons.done,
+                                                size: 14,
+                                              )
+                                            : Container(),
+                                      ],
+                                    ),
+                                  ),
                                 )),
                               ],
                             ),
@@ -246,6 +284,7 @@ class _jobCardState extends State<jobCard> {
                                 });
                                 setState(() {
                                   _isLoading = false;
+                                  currentStatus = 'invehicle';
                                 });
                                 ;
                               },
@@ -256,11 +295,22 @@ class _jobCardState extends State<jobCard> {
                                       color: Colors.yellow.shade700,
                                       borderRadius: BorderRadius.circular(12)),
                                   padding: EdgeInsets.all(12),
-                                  child: AutoSizeText(
-                                    "Successful Rendezvous",
-                                    textAlign: TextAlign.center,
-                                    style:
-                                        Theme.of(context).textTheme.bodyText1,
+                                  child: Row(
+                                    children: [
+                                      AutoSizeText(
+                                        "Successful Rendezvous",
+                                        textAlign: TextAlign.center,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyText1,
+                                      ),
+                                      buttonSelectedStatus[2] == currentStatus
+                                          ? Icon(
+                                              Icons.done,
+                                              size: 14,
+                                            )
+                                          : Container(),
+                                    ],
                                   )),
                             ),
                             Row(
@@ -277,12 +327,16 @@ class _jobCardState extends State<jobCard> {
                                             borderRadius:
                                                 BorderRadius.circular(12)),
                                         padding: EdgeInsets.all(12),
-                                        child: AutoSizeText(
-                                          "Late PU",
-                                          textAlign: TextAlign.center,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .bodyText1,
+                                        child: Row(
+                                          children: [
+                                            AutoSizeText(
+                                              "Late PU",
+                                              textAlign: TextAlign.center,
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .bodyText1,
+                                            ),
+                                          ],
                                         )),
                                   ),
                                 ),
@@ -308,6 +362,7 @@ class _jobCardState extends State<jobCard> {
                                     });
                                     setState(() {
                                       _isLoading = false;
+                                      currentStatus = 'no_show';
                                     });
                                   },
                                   child: Container(
@@ -317,12 +372,23 @@ class _jobCardState extends State<jobCard> {
                                           borderRadius:
                                               BorderRadius.circular(12)),
                                       padding: EdgeInsets.all(12),
-                                      child: AutoSizeText(
-                                        "No Show",
-                                        textAlign: TextAlign.center,
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodyText1,
+                                      child: Row(
+                                        children: [
+                                          AutoSizeText(
+                                            "No Show",
+                                            textAlign: TextAlign.center,
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .bodyText1,
+                                          ),
+                                          buttonSelectedStatus[5] ==
+                                                  currentStatus
+                                              ? Icon(
+                                                  Icons.done,
+                                                  size: 14,
+                                                )
+                                              : Container(),
+                                        ],
                                       )),
                                 )),
                               ],
@@ -360,6 +426,7 @@ class _jobCardState extends State<jobCard> {
                                 });
                                 setState(() {
                                   _isLoading = false;
+                                  currentStatus = 'done';
                                 });
                               },
                               child: Container(
@@ -369,11 +436,22 @@ class _jobCardState extends State<jobCard> {
                                       color: Colors.green,
                                       borderRadius: BorderRadius.circular(12)),
                                   padding: EdgeInsets.all(12),
-                                  child: AutoSizeText(
-                                    "Drop Off Complete",
-                                    textAlign: TextAlign.center,
-                                    style:
-                                        Theme.of(context).textTheme.bodyText1,
+                                  child: Row(
+                                    children: [
+                                      AutoSizeText(
+                                        "Drop Off Complete",
+                                        textAlign: TextAlign.center,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyText1,
+                                      ),
+                                      buttonSelectedStatus[6] == currentStatus
+                                          ? Icon(
+                                              Icons.done,
+                                              size: 14,
+                                            )
+                                          : Container(),
+                                    ],
                                   )),
                             ),
                           ],
@@ -419,6 +497,7 @@ class _jobCardState extends State<jobCard> {
                   });
                   setState(() {
                     _isLoading = false;
+                    currentStatus = 'wait_time';
                   });
                 },
                 child: Container(
@@ -428,10 +507,20 @@ class _jobCardState extends State<jobCard> {
                         borderRadius: BorderRadius.circular(12)),
                     padding: EdgeInsets.only(
                         top: 12, bottom: 12, left: 12, right: 12),
-                    child: AutoSizeText(
-                      "Late Driver",
-                      textAlign: TextAlign.center,
-                      style: Theme.of(context).textTheme.bodyText1,
+                    child: Row(
+                      children: [
+                        AutoSizeText(
+                          "Late Driver",
+                          textAlign: TextAlign.center,
+                          style: Theme.of(context).textTheme.bodyText1,
+                        ),
+                        buttonSelectedStatus[3] == currentStatus
+                            ? Icon(
+                                Icons.done,
+                                size: 14,
+                              )
+                            : Container(),
+                      ],
                     )),
               ),
               GestureDetector(
@@ -454,6 +543,7 @@ class _jobCardState extends State<jobCard> {
                   });
                   setState(() {
                     _isLoading = false;
+                    currentStatus = 'wait_time_passenger';
                   });
                 },
                 child: Container(
@@ -463,10 +553,20 @@ class _jobCardState extends State<jobCard> {
                         borderRadius: BorderRadius.circular(12)),
                     padding: EdgeInsets.only(
                         top: 12, bottom: 12, left: 12, right: 12),
-                    child: AutoSizeText(
-                      "Late PAX   ",
-                      textAlign: TextAlign.center,
-                      style: Theme.of(context).textTheme.bodyText1,
+                    child: Row(
+                      children: [
+                        AutoSizeText(
+                          "Late PAX   ",
+                          textAlign: TextAlign.center,
+                          style: Theme.of(context).textTheme.bodyText1,
+                        ),
+                        buttonSelectedStatus[4] == currentStatus
+                            ? Icon(
+                                Icons.done,
+                                size: 14,
+                              )
+                            : Container(),
+                      ],
                     )),
               ),
             ],

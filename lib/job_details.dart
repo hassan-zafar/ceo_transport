@@ -12,6 +12,8 @@ class JobDetails extends StatefulWidget {
 }
 
 class _JobDetailsState extends State<JobDetails> {
+  String currentStatus = "Not Assigned";
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -27,6 +29,7 @@ class _JobDetailsState extends State<JobDetails> {
                   tag: widget.index!,
                   child: jobCard(
                     jobNo: widget.index!,
+                    // currentStatus: currentStatus,
                     isDetail: true,
                     puTime: widget.jobDetails!.pickupTime!,
                     duData: widget.jobDetails!.reservationDo!,
