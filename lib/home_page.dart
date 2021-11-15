@@ -147,19 +147,22 @@ class _HomePageState extends State<HomePage> {
                                       borderRadius: BorderRadius.circular(50),
                                       child: Icon(
                                         Icons.done,
-                                        size: 250,
+                                        size: 150,
                                       ),
                                     )
                                   : Container(),
                             ],
                           ),
-                      openBuilder: (context, action) =>
-                          allCompletedJobs.contains(index + 1)
-                              ? Center(child: Text('Job Already Completed'))
-                              : JobDetails(
-                                  allJobDetails: reservations,
-                                  index: "${index+1}",
-                                ));
+                      openBuilder: (context, action) => allCompletedJobs
+                              .contains(index + 1)
+                          ? InkWell(
+                              onTap: () => Navigator.of(context).pop(),
+                              child:
+                                  Center(child: Text('Job Already Completed')))
+                          : JobDetails(
+                              allJobDetails: reservations,
+                              index: "${index + 1}",
+                            ));
                 },
               ),
             ],
