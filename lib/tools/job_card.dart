@@ -154,6 +154,7 @@ class _jobCardState extends State<jobCard> {
                       ? Column(
                           children: [
                             Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Text("Current Status: "),
                                 Text(currentStatus!)
@@ -205,6 +206,7 @@ class _jobCardState extends State<jobCard> {
                                         buttonSelectedStatus[0] == currentStatus
                                             ? Icon(
                                                 Icons.done,
+                                                color: Colors.black,
                                                 size: 14,
                                               )
                                             : Container(),
@@ -254,6 +256,7 @@ class _jobCardState extends State<jobCard> {
                                         buttonSelectedStatus[1] == currentStatus
                                             ? Icon(
                                                 Icons.done,
+                                                color: Colors.black,
                                                 size: 14,
                                               )
                                             : Container(),
@@ -307,6 +310,7 @@ class _jobCardState extends State<jobCard> {
                                       buttonSelectedStatus[2] == currentStatus
                                           ? Icon(
                                               Icons.done,
+                                              color: Colors.black,
                                               size: 14,
                                             )
                                           : Container(),
@@ -386,6 +390,7 @@ class _jobCardState extends State<jobCard> {
                                               ? Icon(
                                                   Icons.done,
                                                   size: 14,
+                                                  color: Colors.black,
                                                 )
                                               : Container(),
                                         ],
@@ -437,6 +442,7 @@ class _jobCardState extends State<jobCard> {
                                       borderRadius: BorderRadius.circular(12)),
                                   padding: EdgeInsets.all(12),
                                   child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       AutoSizeText(
                                         "Drop Off Complete",
@@ -448,6 +454,7 @@ class _jobCardState extends State<jobCard> {
                                       buttonSelectedStatus[6] == currentStatus
                                           ? Icon(
                                               Icons.done,
+                                              color: Colors.black,
                                               size: 14,
                                             )
                                           : Container(),
@@ -473,104 +480,113 @@ class _jobCardState extends State<jobCard> {
     showDialog(
       context: constext,
       builder: (context) {
-        return Dialog(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              GestureDetector(
-                onTap: () {
-                  setState(() {
-                    _isLoading = true;
-                  });
-                  ReservationAPI()
-                      .setStatus(
-                          reservationNo: widget.resNo,
-                          token: token!,
-                          type: "wait_time")
-                      .then((passed) {
-                    if (passed) {
-                      CustomToast.successToast(
-                          message: "Status Set: Late Driver");
-                    } else {
-                      CustomToast.errorToast(message: "Couldn't set");
-                    }
-                  });
-                  setState(() {
-                    _isLoading = false;
-                    currentStatus = 'wait_time';
-                  });
-                },
-                child: Container(
-                    margin: EdgeInsets.all(12),
-                    decoration: BoxDecoration(
-                        color: Colors.purple,
-                        borderRadius: BorderRadius.circular(12)),
-                    padding: EdgeInsets.only(
-                        top: 12, bottom: 12, left: 12, right: 12),
-                    child: Row(
-                      children: [
-                        AutoSizeText(
-                          "Late Driver",
-                          textAlign: TextAlign.center,
-                          style: Theme.of(context).textTheme.bodyText1,
-                        ),
-                        buttonSelectedStatus[3] == currentStatus
-                            ? Icon(
-                                Icons.done,
-                                size: 14,
-                              )
-                            : Container(),
-                      ],
-                    )),
+        return StatefulBuilder(
+          builder: (context, setState) {
+            return Dialog(
+              child: SizedBox(
+                height: 70,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          _isLoading = true;
+                        });
+                        ReservationAPI()
+                            .setStatus(
+                                reservationNo: widget.resNo,
+                                token: token!,
+                                type: "wait_time")
+                            .then((passed) {
+                          if (passed) {
+                            CustomToast.successToast(
+                                message: "Status Set: Late Driver");
+                          } else {
+                            CustomToast.errorToast(message: "Couldn't set");
+                          }
+                        });
+                        setState(() {
+                          _isLoading = false;
+                          currentStatus = 'wait_time';
+                        });
+                      },
+                      child: Container(
+                          margin: EdgeInsets.all(12),
+                          decoration: BoxDecoration(
+                              color: Colors.purple,
+                              borderRadius: BorderRadius.circular(12)),
+                          padding: EdgeInsets.only(
+                              top: 12, bottom: 12, left: 12, right: 12),
+                          child: Row(
+                            children: [
+                              AutoSizeText(
+                                "Late Driver",
+                                textAlign: TextAlign.center,
+                                style: Theme.of(context).textTheme.bodyText1,
+                              ),
+                              buttonSelectedStatus[3] == currentStatus
+                                  ? Icon(
+                                      Icons.done,
+                                      color: Colors.black,
+                                      size: 14,
+                                    )
+                                  : Container(),
+                            ],
+                          )),
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          _isLoading = true;
+                        });
+                        ReservationAPI()
+                            .setStatus(
+                                reservationNo: widget.resNo,
+                                token: token!,
+                                type: "wait_time_passenger")
+                            .then((passed) {
+                          if (passed) {
+                            CustomToast.successToast(
+                                message: "Status Set: Late Passenger");
+                          } else {
+                            CustomToast.errorToast(message: "Couldn't set");
+                          }
+                        });
+                        setState(() {
+                          _isLoading = false;
+                          currentStatus = 'wait_time_passenger';
+                        });
+                      },
+                      child: Container(
+                          margin: EdgeInsets.all(12),
+                          decoration: BoxDecoration(
+                              color: Colors.blue,
+                              borderRadius: BorderRadius.circular(12)),
+                          padding: EdgeInsets.only(
+                              top: 12, bottom: 12, left: 12, right: 12),
+                          child: Row(
+                            children: [
+                              AutoSizeText(
+                                "Late PAX   ",
+                                textAlign: TextAlign.center,
+                                style: Theme.of(context).textTheme.bodyText1,
+                              ),
+                              buttonSelectedStatus[4] == currentStatus
+                                  ? Icon(
+                                      Icons.done,
+                                      color: Colors.black,
+                                      size: 14,
+                                    )
+                                  : Container(),
+                            ],
+                          )),
+                    ),
+                  ],
+                ),
               ),
-              GestureDetector(
-                onTap: () {
-                  setState(() {
-                    _isLoading = true;
-                  });
-                  ReservationAPI()
-                      .setStatus(
-                          reservationNo: widget.resNo,
-                          token: token!,
-                          type: "wait_time_passenger")
-                      .then((passed) {
-                    if (passed) {
-                      CustomToast.successToast(
-                          message: "Status Set: Late Passenger");
-                    } else {
-                      CustomToast.errorToast(message: "Couldn't set");
-                    }
-                  });
-                  setState(() {
-                    _isLoading = false;
-                    currentStatus = 'wait_time_passenger';
-                  });
-                },
-                child: Container(
-                    margin: EdgeInsets.all(12),
-                    decoration: BoxDecoration(
-                        color: Colors.blue,
-                        borderRadius: BorderRadius.circular(12)),
-                    padding: EdgeInsets.only(
-                        top: 12, bottom: 12, left: 12, right: 12),
-                    child: Row(
-                      children: [
-                        AutoSizeText(
-                          "Late PAX   ",
-                          textAlign: TextAlign.center,
-                          style: Theme.of(context).textTheme.bodyText1,
-                        ),
-                        buttonSelectedStatus[4] == currentStatus
-                            ? Icon(
-                                Icons.done,
-                                size: 14,
-                              )
-                            : Container(),
-                      ],
-                    )),
-              ),
-            ],
-          ),
+            );
+          },
         );
       },
     );
