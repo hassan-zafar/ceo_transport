@@ -414,23 +414,141 @@ class _jobCardState extends State<jobCard> {
                               ],
                             ),
                             InkWell(
+                              onTap: () {
+                                setState(() {
+                                  _containerExpanded = !_containerExpanded;
+                                });
+                              },
                               child: AnimatedContainer(
-                                  duration: Duration(milliseconds: 200),
+                                  duration: Duration(milliseconds: 1000),
+                                  curve: Curves.easeIn,
                                   margin: EdgeInsets.all(8),
                                   width: double.maxFinite,
                                   decoration: BoxDecoration(
-                                      color: Colors.blue,
+                                      color: _containerExpanded
+                                          ? Colors.purple
+                                          : Colors.blue,
                                       borderRadius: BorderRadius.circular(12)),
                                   padding: EdgeInsets.all(12),
                                   child: _containerExpanded
                                       ? Column(
                                           children: [
                                             AutoSizeText(
-                                              "Additional Charges",
+                                              "Miscl. Charges",
                                               textAlign: TextAlign.center,
                                               style: Theme.of(context)
                                                   .textTheme
                                                   .bodyText1,
+                                            ),
+                                            ListTile(
+                                              leading:
+                                                  AutoSizeText("Wait Time:"),
+                                              title: AutoSizeText(
+                                                '..................',
+                                                softWrap: true,
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .subtitle1,
+                                              ),
+                                              dense: true,
+                                            ),
+                                            ListTile(
+                                              leading:
+                                                  AutoSizeText("Add. Stops:"),
+                                              title: AutoSizeText(
+                                                '..................',
+                                                softWrap: true,
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .subtitle1,
+                                              ),
+                                              dense: true,
+                                            ),
+                                            ListTile(
+                                              leading: AutoSizeText("Tolls:"),
+                                              title: AutoSizeText(
+                                                '..................',
+                                                softWrap: true,
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .subtitle1,
+                                              ),
+                                              dense: true,
+                                            ),
+                                            ListTile(
+                                              leading:
+                                                  AutoSizeText("MS Clean Up:"),
+                                              title: AutoSizeText(
+                                                '..................',
+                                                softWrap: true,
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .subtitle1,
+                                              ),
+                                              dense: true,
+                                            ),
+                                            ListTile(
+                                              leading: AutoSizeText("Damage:"),
+                                              title: AutoSizeText(
+                                                '..................',
+                                                softWrap: true,
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .subtitle1,
+                                              ),
+                                              dense: true,
+                                            ),
+                                            ListTile(
+                                              leading:
+                                                  AutoSizeText("Gratituties:"),
+                                              title: AutoSizeText(
+                                                '..................',
+                                                softWrap: true,
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .subtitle1,
+                                              ),
+                                              dense: true,
+                                            ),
+                                            ListTile(
+                                              leading: AutoSizeText("Tax:"),
+                                              title: AutoSizeText(
+                                                '..................',
+                                                softWrap: true,
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .subtitle1,
+                                              ),
+                                              dense: true,
+                                            ),
+                                            ListTile(
+                                              leading: AutoSizeText("Tax:"),
+                                              title: AutoSizeText(
+                                                '..................',
+                                                softWrap: true,
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .subtitle1,
+                                              ),
+                                              dense: true,
+                                            ),
+                                            ListTile(
+                                              leading: AutoSizeText("Total:"),
+                                              title: AutoSizeText(
+                                                '..................',
+                                                softWrap: true,
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .subtitle1,
+                                              ),
+                                              subtitle: AutoSizeText(
+                                                'Enter Amount',
+                                                softWrap: true,
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .subtitle1,
+                                              ),
+                                              dense: true,
                                             ),
                                           ],
                                         )
