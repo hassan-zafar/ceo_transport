@@ -14,11 +14,11 @@ class JobDetails extends StatefulWidget {
 
 class _JobDetailsState extends State<JobDetails> {
   String currentStatus = "Not Assigned";
+  int? indexConst = 0;
   @override
   void initState() {
     super.initState();
-    indexConst = int.parse(widget.index!);
-    print(indexConst);
+    indexConst = int.parse(widget.index!) - 1;
   }
 
   @override
@@ -35,7 +35,7 @@ class _JobDetailsState extends State<JobDetails> {
               Hero(
                   tag: widget.index!,
                   child: jobCard(
-                    jobNo: indexConst!.toString(),
+                    jobNo: widget.index!,
                     // currentStatus: currentStatus,
                     isDetail: true,
                     resId: widget.allJobDetails[indexConst!]!.reservationId!,

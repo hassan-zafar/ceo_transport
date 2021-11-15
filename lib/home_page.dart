@@ -158,7 +158,7 @@ class _HomePageState extends State<HomePage> {
                               ? Center(child: Text('Job Already Completed'))
                               : JobDetails(
                                   allJobDetails: reservations,
-                                  index: "${index}",
+                                  index: "${index+1}",
                                 ));
                 },
               ),

@@ -584,7 +584,6 @@ class _jobCardState extends State<jobCard> {
                                   _isLoading = false;
                                   allCompletedJobs
                                       .add(int.parse(widget.jobNo!));
-                                  indexConst = int.parse(widget.jobNo!);
                                   currentStatus = 'done';
                                 });
                               },
