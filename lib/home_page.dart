@@ -120,6 +120,7 @@ class _HomePageState extends State<HomePage> {
                 itemBuilder: (context, index) {
                   return OpenContainer(
                       closedColor: Theme.of(context).canvasColor,
+                      transitionDuration: Duration(microseconds: 500000),
                       openColor: Theme.of(context).canvasColor,
                       closedBuilder: (context, action) => Stack(
                             alignment: Alignment.center,
@@ -157,7 +158,7 @@ class _HomePageState extends State<HomePage> {
                               ? Center(child: Text('Job Already Completed'))
                               : JobDetails(
                                   allJobDetails: reservations,
-                                  index: "${index + 1}",
+                                  index: "${index}",
                                 ));
                 },
               ),

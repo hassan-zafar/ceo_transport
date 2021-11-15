@@ -44,6 +44,8 @@ class jobCard extends StatefulWidget {
 class _jobCardState extends State<jobCard> {
   bool _isLoading = false;
   String? currentStatus = 'Not Assigned';
+
+  bool _containerExpanded = false;
   @override
   void initState() {
     super.initState();
@@ -411,18 +413,35 @@ class _jobCardState extends State<jobCard> {
                                 )),
                               ],
                             ),
-                            Container(
-                                margin: EdgeInsets.all(8),
-                                width: double.maxFinite,
-                                decoration: BoxDecoration(
-                                    color: Colors.blue,
-                                    borderRadius: BorderRadius.circular(12)),
-                                padding: EdgeInsets.all(12),
-                                child: AutoSizeText(
-                                  "Additional Charges",
-                                  textAlign: TextAlign.center,
-                                  style: Theme.of(context).textTheme.bodyText1,
-                                )),
+                            InkWell(
+                              child: AnimatedContainer(
+                                  duration: Duration(milliseconds: 200),
+                                  margin: EdgeInsets.all(8),
+                                  width: double.maxFinite,
+                                  decoration: BoxDecoration(
+                                      color: Colors.blue,
+                                      borderRadius: BorderRadius.circular(12)),
+                                  padding: EdgeInsets.all(12),
+                                  child: _containerExpanded
+                                      ? Column(
+                                          children: [
+                                            AutoSizeText(
+                                              "Additional Charges",
+                                              textAlign: TextAlign.center,
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .bodyText1,
+                                            ),
+                                          ],
+                                        )
+                                      : AutoSizeText(
+                                          "Additional Charges",
+                                          textAlign: TextAlign.center,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodyText1,
+                                        )),
+                            ),
                             GestureDetector(
                               onTap: () {
                                 setState(() {

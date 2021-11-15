@@ -18,6 +18,7 @@ class _JobDetailsState extends State<JobDetails> {
   void initState() {
     super.initState();
     indexConst = int.parse(widget.index!);
+    print(indexConst);
   }
 
   @override
@@ -42,11 +43,14 @@ class _JobDetailsState extends State<JobDetails> {
                     duData: widget.allJobDetails[indexConst!]!.reservationDo!,
                     paxData: widget.allJobDetails[indexConst!]!.passengerName!,
                     eadt: widget.allJobDetails[indexConst!]!.eadt!,
-                    hotelAddress: widget.allJobDetails[indexConst!]!.hotelAddress!,
+                    hotelAddress:
+                        widget.allJobDetails[indexConst!]!.hotelAddress!,
                     type: widget.allJobDetails[indexConst!]!.type!,
-                    paxPhone: widget.allJobDetails[indexConst!]!.passengerPhone!,
+                    paxPhone:
+                        widget.allJobDetails[indexConst!]!.passengerPhone!,
                     pax2: "${widget.allJobDetails[indexConst!]!.passengers!}",
-                    puDataAddress: widget.allJobDetails[indexConst!]!.hotelAddress,
+                    puDataAddress:
+                        widget.allJobDetails[indexConst!]!.hotelAddress,
                     resNo:
                         "${widget.allJobDetails[indexConst!]!.reservationNumber!}",
                     puData: widget.allJobDetails[indexConst!]!.pu!,
