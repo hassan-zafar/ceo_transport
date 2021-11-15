@@ -84,18 +84,18 @@ class Driver {
 }
 
 class Reservation {
-  Reservation({
-    this.reservationId,
-    this.reservationNumber,
-    this.passengerName,
-    this.passengers,
-    this.passengerPhone,
-    this.pickupTime,
-    this.pu,
-    this.type,
-    this.reservationDo,
-    this.hotelAddress,
-  });
+  Reservation(
+      {this.reservationId,
+      this.reservationNumber,
+      this.passengerName,
+      this.passengers,
+      this.passengerPhone,
+      this.pickupTime,
+      this.pu,
+      this.type,
+      this.reservationDo,
+      this.hotelAddress,
+      this.eadt});
 
   int? reservationId;
   int? reservationNumber;
@@ -103,6 +103,7 @@ class Reservation {
   int? passengers;
   String? passengerPhone;
   String? pickupTime;
+  String? eadt;
   String? pu;
   String? type;
   String? reservationDo;
@@ -114,6 +115,7 @@ class Reservation {
         passengerName: json["passenger_name"],
         passengers: json["passengers"],
         passengerPhone: json["passenger_phone"],
+        eadt: json["eadt"],
         pickupTime: json["pickup_time"],
         pu: json["pu"],
         type: json["type"],
@@ -128,6 +130,7 @@ class Reservation {
         "passengers": passengers,
         "passenger_phone": passengerPhone,
         "pickup_time": pickupTime,
+        "eadt": eadt,
         "pu": pu,
         "type": type,
         "do": reservationDo,
