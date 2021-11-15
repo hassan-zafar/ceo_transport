@@ -4,3 +4,5 @@ DriverDetails? driverDetails;
 String logo = "assets/images/logo.png";
 String forgetPassPageIcon = "assets/images/forgetPassIcon.png";
 String? token;
+int? indexConst = 0;
+List<int> allCompletedJobs = [];

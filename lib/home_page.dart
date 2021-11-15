@@ -1,11 +1,14 @@
 import 'package:animations/animations.dart';
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:ceo_transport/APIs/reservationAPI.dart';
 import 'package:ceo_transport/constants/constants.dart';
 import 'package:ceo_transport/job_details.dart';
 import 'package:ceo_transport/models/driver_details.dart';
 import 'package:ceo_transport/screens/auth_screens/login.dart';
+import 'package:ceo_transport/tools/custom_toast.dart';
 import 'package:ceo_transport/tools/job_card.dart';
 import 'package:flutter/material.dart';
+import 'package:glassmorphism_ui/glassmorphism_ui.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import 'APIs/driver_api.dart';
@@ -37,6 +40,11 @@ class _HomePageState extends State<HomePage> {
   }
 
   @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     String dateString = DateTime.now().toString();
     var dateparse = DateTime.parse(dateString);
@@ -45,6 +53,7 @@ class _HomePageState extends State<HomePage> {
 
     Driver driverData = driverDetails!.success!.driver!;
     List<Reservation> reservations = driverDetails!.success!.reservations!;
+
     return SafeArea(
       child: Scaffold(
         body: RefreshIndicator(
@@ -112,24 +121,44 @@ class _HomePageState extends State<HomePage> {
                   return OpenContainer(
                       closedColor: Theme.of(context).canvasColor,
                       openColor: Theme.of(context).canvasColor,
-                      closedBuilder: (context, action) => jobCard(
-                            jobNo: "${index + 1}",
-                            isDetail: false,
-                            hotelAddress: reservations[index].hotelAddress,
-                            puTime: reservations[index].pickupTime,
-                            type: reservations[index].type,
-                            duData: reservations[index].reservationDo,
-                            pax2: "${reservations[index].passengers!}",
-                            paxData: reservations[index].passengerName,
-                            paxPhone: reservations[index].passengerPhone,
-                            resNo: "${reservations[index].reservationNumber}",
-                            puDataAddress: reservations[index].hotelAddress,
-                            puData: reservations[index].pu,
+                      closedBuilder: (context, action) => Stack(
+                            alignment: Alignment.center,
+                            children: [
+                              jobCard(
+                                jobNo: "${index + 1}",
+                                isDetail: false,
+                                hotelAddress: reservations[index].hotelAddress,
+                                resId: reservations[index].reservationId,
+                                puTime: reservations[index].pickupTime,
+                                type: reservations[index].type,
+                                duData: reservations[index].reservationDo,
+                                pax2: "${reservations[index].passengers!}",
+                                paxData: reservations[index].passengerName,
+                                paxPhone: reservations[index].passengerPhone,
+                                resNo:
+                                    "${reservations[index].reservationNumber}",
+                                puDataAddress: reservations[index].hotelAddress,
+                                eadt: reservations[index].eadt,
+                                puData: reservations[index].pu,
+                              ),
+                              allCompletedJobs.contains(index + 1)
+                                  ? GlassContainer(
+                                      borderRadius: BorderRadius.circular(50),
+                                      child: Icon(
+                                        Icons.done,
+                                        size: 250,
+                                      ),
+                                    )
+                                  : Container(),
+                            ],
                           ),
-                      openBuilder: (context, action) => JobDetails(
-                            jobDetails: reservations[index],
-                            index: "${index + 1}",
-                          ));
+                      openBuilder: (context, action) =>
+                          allCompletedJobs.contains(index + 1)
+                              ? Center(child: Text('Job Already Completed'))
+                              : JobDetails(
+                                  allJobDetails: reservations,
+                                  index: "${index + 1}",
+                                ));
                 },
               ),
             ],

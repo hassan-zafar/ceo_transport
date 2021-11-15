@@ -10,8 +10,10 @@ class jobCard extends StatefulWidget {
 
   final String? puTime;
   final String? resNo;
+  final int? resId;
   final String? paxData;
   final String? puData;
+  final String? eadt;
   final String? duData;
   final String? paxPhone;
   final String? pax2;
@@ -22,6 +24,7 @@ class jobCard extends StatefulWidget {
   const jobCard(
       {this.jobNo,
       this.puTime,
+      this.resId,
       this.duData,
       this.paxData,
       this.paxPhone,
@@ -30,6 +33,7 @@ class jobCard extends StatefulWidget {
       this.pax2,
       this.puData,
       this.type,
+      this.eadt,
       this.hotelAddress,
       this.resNo});
 
@@ -40,6 +44,10 @@ class jobCard extends StatefulWidget {
 class _jobCardState extends State<jobCard> {
   bool _isLoading = false;
   String? currentStatus = 'Not Assigned';
+  @override
+  void initState() {
+    super.initState();
+  }
 
   List buttonSelectedStatus = [
     'en_route',
@@ -129,6 +137,10 @@ class _jobCardState extends State<jobCard> {
                       softWrap: true,
                       style: Theme.of(context).textTheme.subtitle1,
                     ),
+                    isThreeLine: true,
+                    trailing: SizedBox(
+                        // width: 50,
+                        child: AutoSizeText('EAT/EDT:\n${widget.eadt!}')),
                     subtitle: AutoSizeText(
                       widget.type == "Airport Arrival"
                           ? widget.hotelAddress!
@@ -171,7 +183,7 @@ class _jobCardState extends State<jobCard> {
 
                                     ReservationAPI()
                                         .setStatus(
-                                            reservationNo: widget.resNo,
+                                            reservationNo: widget.resId,
                                             token: token!,
                                             type: "en_route")
                                         .then((passed) {
@@ -220,7 +232,7 @@ class _jobCardState extends State<jobCard> {
                                     });
                                     ReservationAPI()
                                         .setStatus(
-                                            reservationNo: widget.resNo,
+                                            reservationNo: widget.resId,
                                             token: token!,
                                             type: "on_location")
                                         .then((passed) {
@@ -273,7 +285,7 @@ class _jobCardState extends State<jobCard> {
                                 });
                                 ReservationAPI()
                                     .setStatus(
-                                        reservationNo: widget.resNo,
+                                        reservationNo: widget.resId,
                                         token: token!,
                                         type: "invehicle")
                                     .then((passed) {
@@ -299,6 +311,7 @@ class _jobCardState extends State<jobCard> {
                                       borderRadius: BorderRadius.circular(12)),
                                   padding: EdgeInsets.all(12),
                                   child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       AutoSizeText(
                                         "Successful Rendezvous",
@@ -352,7 +365,7 @@ class _jobCardState extends State<jobCard> {
                                     });
                                     ReservationAPI()
                                         .setStatus(
-                                            reservationNo: widget.resNo,
+                                            reservationNo: widget.resId,
                                             token: token!,
                                             type: "no_show")
                                         .then((passed) {
@@ -417,13 +430,14 @@ class _jobCardState extends State<jobCard> {
                                 });
                                 ReservationAPI()
                                     .setStatus(
-                                        reservationNo: widget.resNo,
+                                        reservationNo: widget.resId,
                                         token: token!,
                                         type: "done")
                                     .then((passed) {
                                   if (passed) {
                                     CustomToast.successToast(
                                         message: "Status: Drop Off Complete");
+                                    Navigator.of(context).pop();
                                   } else {
                                     CustomToast.errorToast(
                                         message: "Couldn't set");
@@ -431,6 +445,9 @@ class _jobCardState extends State<jobCard> {
                                 });
                                 setState(() {
                                   _isLoading = false;
+                                  allCompletedJobs
+                                      .add(int.parse(widget.jobNo!));
+                                  indexConst = int.parse(widget.jobNo!);
                                   currentStatus = 'done';
                                 });
                               },
@@ -495,7 +512,7 @@ class _jobCardState extends State<jobCard> {
                         });
                         ReservationAPI()
                             .setStatus(
-                                reservationNo: widget.resNo,
+                                reservationNo: widget.resId,
                                 token: token!,
                                 type: "wait_time")
                             .then((passed) {
@@ -542,7 +559,7 @@ class _jobCardState extends State<jobCard> {
                         });
                         ReservationAPI()
                             .setStatus(
-                                reservationNo: widget.resNo,
+                                reservationNo: widget.resId,
                                 token: token!,
                                 type: "wait_time_passenger")
                             .then((passed) {

@@ -1,11 +1,12 @@
+import 'package:ceo_transport/constants/constants.dart';
 import 'package:ceo_transport/models/driver_details.dart';
 import 'package:ceo_transport/tools/job_card.dart';
 import 'package:flutter/material.dart';
 
 class JobDetails extends StatefulWidget {
-  final Reservation? jobDetails;
+  final List<Reservation?> allJobDetails;
   final String? index;
-  const JobDetails({required this.jobDetails, required this.index});
+  const JobDetails({required this.allJobDetails, required this.index});
 
   @override
   _JobDetailsState createState() => _JobDetailsState();
@@ -13,6 +14,11 @@ class JobDetails extends StatefulWidget {
 
 class _JobDetailsState extends State<JobDetails> {
   String currentStatus = "Not Assigned";
+  @override
+  void initState() {
+    super.initState();
+    indexConst = int.parse(widget.index!);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,19 +34,22 @@ class _JobDetailsState extends State<JobDetails> {
               Hero(
                   tag: widget.index!,
                   child: jobCard(
-                    jobNo: widget.index!,
+                    jobNo: indexConst!.toString(),
                     // currentStatus: currentStatus,
                     isDetail: true,
-                    puTime: widget.jobDetails!.pickupTime!,
-                    duData: widget.jobDetails!.reservationDo!,
-                    paxData: widget.jobDetails!.passengerName!,
-                    hotelAddress: widget.jobDetails!.hotelAddress!,
-                    type: widget.jobDetails!.type!,
-                    paxPhone: widget.jobDetails!.passengerPhone!,
-                    pax2: "${widget.jobDetails!.passengers!}",
-                    puDataAddress: widget.jobDetails!.hotelAddress,
-                    resNo: "${widget.jobDetails!.reservationId!}",
-                    puData: widget.jobDetails!.pu!,
+                    resId: widget.allJobDetails[indexConst!]!.reservationId!,
+                    puTime: widget.allJobDetails[indexConst!]!.pickupTime!,
+                    duData: widget.allJobDetails[indexConst!]!.reservationDo!,
+                    paxData: widget.allJobDetails[indexConst!]!.passengerName!,
+                    eadt: widget.allJobDetails[indexConst!]!.eadt!,
+                    hotelAddress: widget.allJobDetails[indexConst!]!.hotelAddress!,
+                    type: widget.allJobDetails[indexConst!]!.type!,
+                    paxPhone: widget.allJobDetails[indexConst!]!.passengerPhone!,
+                    pax2: "${widget.allJobDetails[indexConst!]!.passengers!}",
+                    puDataAddress: widget.allJobDetails[indexConst!]!.hotelAddress,
+                    resNo:
+                        "${widget.allJobDetails[indexConst!]!.reservationNumber!}",
+                    puData: widget.allJobDetails[indexConst!]!.pu!,
                   ))
             ],
           ),
