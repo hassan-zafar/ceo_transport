@@ -261,7 +261,7 @@ class _jobCardState extends State<jobCard> {
                                     child: Row(
                                       children: [
                                         AutoSizeText(
-                                          "On Local",
+                                          "On Locate",
                                           textAlign: TextAlign.center,
                                           style: Theme.of(context)
                                               .textTheme
