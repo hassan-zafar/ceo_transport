@@ -49,14 +49,14 @@ class _jobCardState extends State<jobCard> {
   @override
   void initState() {
     super.initState();
-    waitTimeController = TextEditingController(text: ".00");
-    addStopsController = TextEditingController(text: ".00");
-    tollsController = TextEditingController(text: ".00");
-    msCleanUpController = TextEditingController(text: ".00");
-    vehileDamageController = TextEditingController(text: ".00");
-    gratitudesController = TextEditingController(text: ".00");
-    othersController = TextEditingController(text: ".00");
-    taxController = TextEditingController(text: ".00");
+    waitTimeController = TextEditingController(text: "0");
+    addStopsController = TextEditingController(text: "0");
+    tollsController = TextEditingController(text: "0");
+    msCleanUpController = TextEditingController(text: "0");
+    vehileDamageController = TextEditingController(text: "0");
+    gratitudesController = TextEditingController(text: "0");
+    othersController = TextEditingController(text: "0");
+    taxController = TextEditingController(text: "0");
   }
 
   List buttonSelectedStatus = [
@@ -127,7 +127,10 @@ class _jobCardState extends State<jobCard> {
                       softWrap: true,
                       style: Theme.of(context).textTheme.subtitle1,
                     ),
-                    trailing: AutoSizeText("#PAX ${widget.pax2}"),
+                    trailing: AutoSizeText(
+                      "#PAX ${widget.pax2}",
+                      style: Theme.of(context).textTheme.subtitle1,
+                    ),
                     dense: true,
                   ),
                   ListTile(
@@ -593,6 +596,16 @@ class _jobCardState extends State<jobCard> {
                                                       gratitudesController,
                                                   keyboardType:
                                                       TextInputType.number,
+                                                  onChanged: (value) {
+                                                    final val =
+                                                        TextSelection.collapsed(
+                                                            offset:
+                                                                gratitudesController
+                                                                    .text
+                                                                    .length);
+                                                    gratitudesController
+                                                        .selection = val;
+                                                  },
                                                   onEditingComplete: () =>
                                                       setState(() {
                                                     totalAmount = totalAmount! +
@@ -621,15 +634,49 @@ class _jobCardState extends State<jobCard> {
                                               ListTile(
                                                 leading: AutoSizeText("Total:"),
                                                 title: AutoSizeText(
-                                                    totalAmount.toString()),
-                                                subtitle: AutoSizeText(
+                                                  totalAmount.toString(),
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .subtitle1,
+                                                ),
+                                                dense: true,
+                                              ),
+                                              ElevatedButton(
+                                                onPressed: () {
+                                                  ReservationAPI()
+                                                      .additionalChargesAPi(
+                                                          reservationId: widget
+                                                              .resId!,
+                                                          wait_time:
+                                                              waitTimeController
+                                                                  .text,
+                                                          add_stop:
+                                                              addStopsController
+                                                                  .text,
+                                                          clean_up:
+                                                              msCleanUpController
+                                                                  .text,
+                                                          damage:
+                                                              vehileDamageController
+                                                                  .text,
+                                                          gratuity:
+                                                              gratitudesController
+                                                                  .text,
+                                                          tax: taxController
+                                                              .text,
+                                                          tolls: tollsController
+                                                              .text,
+                                                          others:
+                                                              othersController
+                                                                  .text);
+                                                },
+                                                child: AutoSizeText(
                                                   'Enter Amount',
                                                   softWrap: true,
                                                   style: Theme.of(context)
                                                       .textTheme
                                                       .subtitle1,
                                                 ),
-                                                dense: true,
                                               ),
                                             ],
                                           ),

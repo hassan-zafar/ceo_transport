@@ -30,6 +30,10 @@ class MyApp extends StatelessWidget {
       title: 'CEO Transport',
       theme: ThemeData(
           brightness: Brightness.dark,
+          elevatedButtonTheme: ElevatedButtonThemeData(
+              style: ButtonStyle(
+            backgroundColor: MaterialStateProperty.all(Colors.black),
+          )),
           textTheme: TextTheme(
             bodyText2: TextStyle(fontSize: 20, color: Colors.yellow.shade800),
             subtitle1: TextStyle(fontSize: 18),
