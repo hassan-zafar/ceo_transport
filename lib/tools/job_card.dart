@@ -49,6 +49,14 @@ class _jobCardState extends State<jobCard> {
   @override
   void initState() {
     super.initState();
+    waitTimeController = TextEditingController(text: ".00");
+    addStopsController = TextEditingController(text: ".00");
+    tollsController = TextEditingController(text: ".00");
+    msCleanUpController = TextEditingController(text: ".00");
+    vehileDamageController = TextEditingController(text: ".00");
+    gratitudesController = TextEditingController(text: ".00");
+    othersController = TextEditingController(text: ".00");
+    taxController = TextEditingController(text: ".00");
   }
 
   List buttonSelectedStatus = [
@@ -60,6 +68,16 @@ class _jobCardState extends State<jobCard> {
     'no_show',
     'done'
   ];
+  TextEditingController waitTimeController = TextEditingController();
+  TextEditingController addStopsController = TextEditingController();
+  TextEditingController tollsController = TextEditingController();
+  TextEditingController msCleanUpController = TextEditingController();
+  TextEditingController vehileDamageController = TextEditingController();
+  TextEditingController gratitudesController = TextEditingController();
+  TextEditingController othersController = TextEditingController();
+  TextEditingController taxController = TextEditingController();
+  final _textFormKey = GlobalKey<FormState>();
+  double? totalAmount = 0;
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -140,9 +158,9 @@ class _jobCardState extends State<jobCard> {
                       style: Theme.of(context).textTheme.subtitle1,
                     ),
                     isThreeLine: true,
-                    trailing: SizedBox(
-                        // width: 50,
-                        child: AutoSizeText('EAT/EDT:\n${widget.eadt!}')),
+                    // trailing: SizedBox(
+                    //     // width: 50,
+                    //     child: AutoSizeText('EAT/EDT:\n${widget.eadt!}')),
                     subtitle: AutoSizeText(
                       widget.type == "Airport Arrival"
                           ? widget.hotelAddress!
@@ -190,8 +208,8 @@ class _jobCardState extends State<jobCard> {
                                             type: "en_route")
                                         .then((passed) {
                                       if (passed) {
-                                        CustomToast.successToast(
-                                            message: "Status Set: En_Route");
+                                        // CustomToast.successToast(
+                                        //     message: "Status Set: En_Route");
                                       } else {
                                         CustomToast.errorToast(
                                             message: "Couldn't set");
@@ -209,22 +227,26 @@ class _jobCardState extends State<jobCard> {
                                           borderRadius:
                                               BorderRadius.circular(12)),
                                       padding: EdgeInsets.all(12),
-                                      child: Row(children: [
-                                        AutoSizeText(
-                                          "En Route",
-                                          textAlign: TextAlign.center,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .bodyText1,
-                                        ),
-                                        buttonSelectedStatus[0] == currentStatus
-                                            ? Icon(
-                                                Icons.done,
-                                                color: Colors.black,
-                                                size: 14,
-                                              )
-                                            : Container(),
-                                      ])),
+                                      child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            AutoSizeText(
+                                              "En Route",
+                                              textAlign: TextAlign.center,
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .bodyText1,
+                                            ),
+                                            buttonSelectedStatus[0] ==
+                                                    currentStatus
+                                                ? Icon(
+                                                    Icons.done,
+                                                    color: Colors.black,
+                                                    size: 25,
+                                                  )
+                                                : Container(),
+                                          ])),
                                 )),
                                 Expanded(
                                     child: GestureDetector(
@@ -239,8 +261,8 @@ class _jobCardState extends State<jobCard> {
                                             type: "on_location")
                                         .then((passed) {
                                       if (passed) {
-                                        CustomToast.successToast(
-                                            message: "Status Set: On Location");
+                                        // CustomToast.successToast(
+                                        //     message: "Status Set: On Location");
                                       } else {
                                         CustomToast.errorToast(
                                             message: "Couldn't set");
@@ -259,6 +281,8 @@ class _jobCardState extends State<jobCard> {
                                             BorderRadius.circular(12)),
                                     padding: EdgeInsets.all(12),
                                     child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
                                       children: [
                                         AutoSizeText(
                                           "On Locale",
@@ -271,7 +295,7 @@ class _jobCardState extends State<jobCard> {
                                             ? Icon(
                                                 Icons.done,
                                                 color: Colors.black,
-                                                size: 14,
+                                                size: 25,
                                               )
                                             : Container(),
                                       ],
@@ -292,8 +316,8 @@ class _jobCardState extends State<jobCard> {
                                         type: "invehicle")
                                     .then((passed) {
                                   if (passed) {
-                                    CustomToast.successToast(
-                                        message: "Status Set: In Vehicle");
+                                    // CustomToast.successToast(
+                                    //     message: "Status Set: In Vehicle");
                                   } else {
                                     CustomToast.errorToast(
                                         message: "Couldn't set");
@@ -326,7 +350,7 @@ class _jobCardState extends State<jobCard> {
                                           ? Icon(
                                               Icons.done,
                                               color: Colors.black,
-                                              size: 14,
+                                              size: 25,
                                             )
                                           : Container(),
                                     ],
@@ -347,6 +371,8 @@ class _jobCardState extends State<jobCard> {
                                                 BorderRadius.circular(12)),
                                         padding: EdgeInsets.all(12),
                                         child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
                                           children: [
                                             AutoSizeText(
                                               "Late PU",
@@ -372,8 +398,8 @@ class _jobCardState extends State<jobCard> {
                                             type: "no_show")
                                         .then((passed) {
                                       if (passed) {
-                                        CustomToast.successToast(
-                                            message: "Status Set: No Show");
+                                        // CustomToast.successToast(
+                                        //     message: "Status Set: No Show");
                                       } else {
                                         CustomToast.errorToast(
                                             message: "Couldn't set");
@@ -392,6 +418,8 @@ class _jobCardState extends State<jobCard> {
                                               BorderRadius.circular(12)),
                                       padding: EdgeInsets.all(12),
                                       child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
                                         children: [
                                           AutoSizeText(
                                             "No Show",
@@ -404,7 +432,7 @@ class _jobCardState extends State<jobCard> {
                                                   currentStatus
                                               ? Icon(
                                                   Icons.done,
-                                                  size: 14,
+                                                  size: 25,
                                                   color: Colors.black,
                                                 )
                                               : Container(),
@@ -424,133 +452,187 @@ class _jobCardState extends State<jobCard> {
                                   curve: Curves.easeIn,
                                   margin: EdgeInsets.all(8),
                                   width: double.maxFinite,
+                                  padding: EdgeInsets.all(
+                                      _containerExpanded ? 0 : 12),
                                   decoration: BoxDecoration(
                                       color: _containerExpanded
-                                          ? Colors.purple
+                                          ? Colors.black12
                                           : Colors.blue,
-                                      borderRadius: BorderRadius.circular(12)),
-                                  padding: EdgeInsets.all(12),
+                                      borderRadius: BorderRadius.circular(
+                                          _containerExpanded ? 20 : 12)),
                                   child: _containerExpanded
-                                      ? Column(
-                                          children: [
-                                            AutoSizeText(
-                                              "Miscl. Charges",
-                                              textAlign: TextAlign.center,
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .bodyText1,
-                                            ),
-                                            ListTile(
-                                              leading:
-                                                  AutoSizeText("Wait Time:"),
-                                              title: AutoSizeText(
-                                                '..................',
-                                                softWrap: true,
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .subtitle1,
+                                      ? Card(
+                                          shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(20)),
+                                          child: Column(
+                                            children: [
+                                              Container(
+                                                decoration: BoxDecoration(
+                                                    color: Colors.black,
+                                                    borderRadius:
+                                                        BorderRadius.only(
+                                                            topLeft: Radius
+                                                                .circular(20),
+                                                            topRight:
+                                                                Radius.circular(
+                                                                    20))),
+                                                child: Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(8.0),
+                                                  child: Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                    children: [
+                                                      AutoSizeText(
+                                                        "Miscl. Charges",
+                                                        textAlign:
+                                                            TextAlign.center,
+                                                        // style: Theme.of(context)
+                                                        //     .textTheme
+                                                        //     .headline1,
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
                                               ),
-                                              dense: true,
-                                            ),
-                                            ListTile(
-                                              leading:
-                                                  AutoSizeText("Add. Stops:"),
-                                              title: AutoSizeText(
-                                                '..................',
-                                                softWrap: true,
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .subtitle1,
+                                              ListTile(
+                                                leading:
+                                                    AutoSizeText("Wait Time:"),
+                                                title: TextField(
+                                                  controller:
+                                                      waitTimeController,
+                                                  keyboardType:
+                                                      TextInputType.number,
+                                                  onEditingComplete: () =>
+                                                      setState(() {
+                                                    totalAmount = totalAmount! +
+                                                        double.parse(
+                                                            waitTimeController
+                                                                .text);
+                                                  }),
+                                                ),
+                                                dense: true,
                                               ),
-                                              dense: true,
-                                            ),
-                                            ListTile(
-                                              leading: AutoSizeText("Tolls:"),
-                                              title: AutoSizeText(
-                                                '..................',
-                                                softWrap: true,
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .subtitle1,
+                                              ListTile(
+                                                leading:
+                                                    AutoSizeText("Add. Stops:"),
+                                                title: TextField(
+                                                  controller:
+                                                      addStopsController,
+                                                  keyboardType:
+                                                      TextInputType.number,
+                                                  onEditingComplete: () =>
+                                                      setState(() {
+                                                    totalAmount = totalAmount! +
+                                                        double.parse(
+                                                            addStopsController
+                                                                .text);
+                                                  }),
+                                                ),
+                                                dense: true,
                                               ),
-                                              dense: true,
-                                            ),
-                                            ListTile(
-                                              leading:
-                                                  AutoSizeText("MS Clean Up:"),
-                                              title: AutoSizeText(
-                                                '..................',
-                                                softWrap: true,
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .subtitle1,
+                                              ListTile(
+                                                leading: AutoSizeText("Tolls:"),
+                                                title: TextField(
+                                                  controller: tollsController,
+                                                  keyboardType:
+                                                      TextInputType.number,
+                                                  onEditingComplete: () =>
+                                                      setState(() {
+                                                    totalAmount = totalAmount! +
+                                                        double.parse(
+                                                            tollsController
+                                                                .text);
+                                                  }),
+                                                ),
+                                                dense: true,
                                               ),
-                                              dense: true,
-                                            ),
-                                            ListTile(
-                                              leading: AutoSizeText("Damage:"),
-                                              title: AutoSizeText(
-                                                '..................',
-                                                softWrap: true,
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .subtitle1,
+                                              ListTile(
+                                                leading: AutoSizeText(
+                                                    "MS Clean Up:"),
+                                                title: TextField(
+                                                  controller:
+                                                      msCleanUpController,
+                                                  keyboardType:
+                                                      TextInputType.number,
+                                                  onEditingComplete: () =>
+                                                      setState(() {
+                                                    totalAmount = totalAmount! +
+                                                        double.parse(
+                                                            msCleanUpController
+                                                                .text);
+                                                  }),
+                                                ),
+                                                dense: true,
                                               ),
-                                              dense: true,
-                                            ),
-                                            ListTile(
-                                              leading:
-                                                  AutoSizeText("Gratituties:"),
-                                              title: AutoSizeText(
-                                                '..................',
-                                                softWrap: true,
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .subtitle1,
+                                              ListTile(
+                                                leading:
+                                                    AutoSizeText("Damage:"),
+                                                title: TextField(
+                                                  controller:
+                                                      vehileDamageController,
+                                                  keyboardType:
+                                                      TextInputType.number,
+                                                  onEditingComplete: () =>
+                                                      setState(() {
+                                                    totalAmount = totalAmount! +
+                                                        double.parse(
+                                                            vehileDamageController
+                                                                .text);
+                                                  }),
+                                                ),
+                                                dense: true,
                                               ),
-                                              dense: true,
-                                            ),
-                                            ListTile(
-                                              leading: AutoSizeText("Tax:"),
-                                              title: AutoSizeText(
-                                                '..................',
-                                                softWrap: true,
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .subtitle1,
+                                              ListTile(
+                                                leading: AutoSizeText(
+                                                    "Gratituties:"),
+                                                title: TextField(
+                                                  controller:
+                                                      gratitudesController,
+                                                  keyboardType:
+                                                      TextInputType.number,
+                                                  onEditingComplete: () =>
+                                                      setState(() {
+                                                    totalAmount = totalAmount! +
+                                                        double.parse(
+                                                            gratitudesController
+                                                                .text);
+                                                  }),
+                                                ),
+                                                dense: true,
                                               ),
-                                              dense: true,
-                                            ),
-                                            ListTile(
-                                              leading: AutoSizeText("Tax:"),
-                                              title: AutoSizeText(
-                                                '..................',
-                                                softWrap: true,
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .subtitle1,
+                                              ListTile(
+                                                leading: AutoSizeText("Tax:"),
+                                                title: TextField(
+                                                  controller: taxController,
+                                                  keyboardType:
+                                                      TextInputType.number,
+                                                  onEditingComplete: () =>
+                                                      setState(() {
+                                                    totalAmount = totalAmount! +
+                                                        double.parse(
+                                                            taxController.text);
+                                                  }),
+                                                ),
+                                                dense: true,
                                               ),
-                                              dense: true,
-                                            ),
-                                            ListTile(
-                                              leading: AutoSizeText("Total:"),
-                                              title: AutoSizeText(
-                                                '..................',
-                                                softWrap: true,
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .subtitle1,
+                                              ListTile(
+                                                leading: AutoSizeText("Total:"),
+                                                title: AutoSizeText(
+                                                    totalAmount.toString()),
+                                                subtitle: AutoSizeText(
+                                                  'Enter Amount',
+                                                  softWrap: true,
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .subtitle1,
+                                                ),
+                                                dense: true,
                                               ),
-                                              subtitle: AutoSizeText(
-                                                'Enter Amount',
-                                                softWrap: true,
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .subtitle1,
-                                              ),
-                                              dense: true,
-                                            ),
-                                          ],
+                                            ],
+                                          ),
                                         )
                                       : AutoSizeText(
                                           "Additional Charges",
@@ -572,8 +654,8 @@ class _jobCardState extends State<jobCard> {
                                         type: "done")
                                     .then((passed) {
                                   if (passed) {
-                                    CustomToast.successToast(
-                                        message: "Status: Drop Off Complete");
+                                    // CustomToast.successToast(
+                                    //     message: "Status: Drop Off Complete");
                                     Navigator.of(context).pop();
                                   } else {
                                     CustomToast.errorToast(
@@ -608,7 +690,7 @@ class _jobCardState extends State<jobCard> {
                                           ? Icon(
                                               Icons.done,
                                               color: Colors.black,
-                                              size: 14,
+                                              size: 25,
                                             )
                                           : Container(),
                                     ],
@@ -653,8 +735,8 @@ class _jobCardState extends State<jobCard> {
                                 type: "wait_time")
                             .then((passed) {
                           if (passed) {
-                            CustomToast.successToast(
-                                message: "Status Set: Late Driver");
+                            // CustomToast.successToast(
+                            //     message: "Status Set: Late Driver");
                           } else {
                             CustomToast.errorToast(message: "Couldn't set");
                           }
@@ -682,7 +764,7 @@ class _jobCardState extends State<jobCard> {
                                   ? Icon(
                                       Icons.done,
                                       color: Colors.black,
-                                      size: 14,
+                                      size: 25,
                                     )
                                   : Container(),
                             ],
@@ -700,8 +782,8 @@ class _jobCardState extends State<jobCard> {
                                 type: "wait_time_passenger")
                             .then((passed) {
                           if (passed) {
-                            CustomToast.successToast(
-                                message: "Status Set: Late Passenger");
+                            // CustomToast.successToast(
+                            // message: "Status Set: Late Passenger");
                           } else {
                             CustomToast.errorToast(message: "Couldn't set");
                           }
@@ -729,7 +811,7 @@ class _jobCardState extends State<jobCard> {
                                   ? Icon(
                                       Icons.done,
                                       color: Colors.black,
-                                      size: 14,
+                                      size: 25,
                                     )
                                   : Container(),
                             ],
