@@ -500,141 +500,211 @@ class _jobCardState extends State<jobCard> {
                                                   ),
                                                 ),
                                               ),
-                                              ListTile(
-                                                leading:
-                                                    AutoSizeText("Wait Time:"),
-                                                title: TextField(
-                                                  controller:
-                                                      waitTimeController,
-                                                  keyboardType:
-                                                      TextInputType.number,
-                                                  onEditingComplete: () =>
-                                                      setState(() {
-                                                    totalAmount = totalAmount! +
-                                                        double.parse(
-                                                            waitTimeController
-                                                                .text);
-                                                  }),
-                                                ),
-                                                dense: true,
+                                              Row(
+                                                children: [
+                                                  Expanded(
+                                                    child: AutoSizeText(
+                                                      "Wait Time:",
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                    ),
+                                                  ),
+                                                  Expanded(
+                                                    child: TextField(
+                                                      controller:
+                                                          waitTimeController,
+                                                      keyboardType:
+                                                          TextInputType.number,
+                                                      onEditingComplete: () =>
+                                                          setState(() {
+                                                        totalAmount = totalAmount! +
+                                                            double.parse(
+                                                                waitTimeController
+                                                                    .text);
+                                                      }),
+                                                    ),
+                                                  ),
+                                                ],
                                               ),
-                                              ListTile(
-                                                leading:
-                                                    AutoSizeText("Add. Stops:"),
-                                                title: TextField(
-                                                  controller:
-                                                      addStopsController,
-                                                  keyboardType:
-                                                      TextInputType.number,
-                                                  onEditingComplete: () =>
-                                                      setState(() {
-                                                    totalAmount = totalAmount! +
-                                                        double.parse(
-                                                            addStopsController
-                                                                .text);
-                                                  }),
-                                                ),
-                                                dense: true,
+                                              Row(
+                                                children: [
+                                                  Expanded(
+                                                      child: AutoSizeText(
+                                                    "Add. Stops:",
+                                                    textAlign: TextAlign.center,
+                                                  )),
+                                                  Expanded(
+                                                    child: TextField(
+                                                      controller:
+                                                          addStopsController,
+                                                      keyboardType:
+                                                          TextInputType.number,
+                                                      onEditingComplete: () =>
+                                                          setState(() {
+                                                        totalAmount = totalAmount! +
+                                                            double.parse(
+                                                                addStopsController
+                                                                    .text);
+                                                      }),
+                                                    ),
+                                                  ),
+                                                ],
                                               ),
-                                              ListTile(
-                                                leading: AutoSizeText("Tolls:"),
-                                                title: TextField(
-                                                  controller: tollsController,
-                                                  keyboardType:
-                                                      TextInputType.number,
-                                                  onEditingComplete: () =>
-                                                      setState(() {
-                                                    totalAmount = totalAmount! +
-                                                        double.parse(
-                                                            tollsController
-                                                                .text);
-                                                  }),
-                                                ),
-                                                dense: true,
+                                              Row(
+                                                children: [
+                                                  Expanded(
+                                                    child: AutoSizeText(
+                                                      "Tolls:",
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                    ),
+                                                  ),
+                                                  Expanded(
+                                                    child: TextField(
+                                                      controller:
+                                                          tollsController,
+                                                      keyboardType:
+                                                          TextInputType.number,
+                                                      onEditingComplete: () =>
+                                                          setState(() {
+                                                        totalAmount =
+                                                            totalAmount! +
+                                                                double.parse(
+                                                                    tollsController
+                                                                        .text);
+                                                      }),
+                                                    ),
+                                                  ),
+                                                ],
                                               ),
-                                              ListTile(
-                                                leading: AutoSizeText(
-                                                    "MS Clean Up:"),
-                                                title: TextField(
-                                                  controller:
-                                                      msCleanUpController,
-                                                  keyboardType:
-                                                      TextInputType.number,
-                                                  onEditingComplete: () =>
-                                                      setState(() {
-                                                    totalAmount = totalAmount! +
-                                                        double.parse(
-                                                            msCleanUpController
-                                                                .text);
-                                                  }),
-                                                ),
-                                                dense: true,
+                                              Row(
+                                                children: [
+                                                  Expanded(
+                                                    child: AutoSizeText(
+                                                      "MS Clean Up:",
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                    ),
+                                                  ),
+                                                  Expanded(
+                                                    child: TextField(
+                                                      controller:
+                                                          msCleanUpController,
+                                                      keyboardType:
+                                                          TextInputType.number,
+                                                      onEditingComplete: () =>
+                                                          setState(() {
+                                                        totalAmount = totalAmount! +
+                                                            double.parse(
+                                                                msCleanUpController
+                                                                    .text);
+                                                      }),
+                                                    ),
+                                                  ),
+                                                ],
                                               ),
-                                              ListTile(
-                                                leading:
-                                                    AutoSizeText("Damage:"),
-                                                title: TextField(
-                                                  controller:
-                                                      vehileDamageController,
-                                                  keyboardType:
-                                                      TextInputType.number,
-                                                  onEditingComplete: () =>
-                                                      setState(() {
-                                                    totalAmount = totalAmount! +
-                                                        double.parse(
-                                                            vehileDamageController
-                                                                .text);
-                                                  }),
-                                                ),
-                                                dense: true,
+                                              Row(
+                                                children: [
+                                                  Expanded(
+                                                    child: AutoSizeText(
+                                                      "Veh. Damage:",
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                    ),
+                                                  ),
+                                                  Expanded(
+                                                    child: TextField(
+                                                      controller:
+                                                          vehileDamageController,
+                                                      keyboardType:
+                                                          TextInputType.number,
+                                                      onEditingComplete: () =>
+                                                          setState(() {
+                                                        totalAmount = totalAmount! +
+                                                            double.parse(
+                                                                vehileDamageController
+                                                                    .text);
+                                                      }),
+                                                    ),
+                                                  ),
+                                                ],
                                               ),
-                                              ListTile(
-                                                leading: AutoSizeText(
-                                                    "Gratituties:"),
-                                                title: TextField(
-                                                  controller:
-                                                      gratitudesController,
-                                                  keyboardType:
-                                                      TextInputType.number,
-                                                  onChanged: (value) {
-                                                    final val =
-                                                        TextSelection.collapsed(
-                                                            offset:
+                                              Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.center,
+                                                children: [
+                                                  Expanded(
+                                                    child: AutoSizeText(
+                                                      "Gratituties:",
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                    ),
+                                                  ),
+                                                  Expanded(
+                                                    child: TextField(
+                                                      controller:
+                                                          gratitudesController,
+                                                      keyboardType:
+                                                          TextInputType.number,
+                                                      onChanged: (value) {
+                                                        final val = TextSelection
+                                                            .collapsed(
+                                                                offset:
+                                                                    gratitudesController
+                                                                        .text
+                                                                        .length);
+                                                        gratitudesController
+                                                            .selection = val;
+                                                      },
+                                                      onEditingComplete: () =>
+                                                          setState(() {
+                                                        totalAmount = totalAmount! +
+                                                            double.parse(
                                                                 gratitudesController
-                                                                    .text
-                                                                    .length);
-                                                    gratitudesController
-                                                        .selection = val;
-                                                  },
-                                                  onEditingComplete: () =>
-                                                      setState(() {
-                                                    totalAmount = totalAmount! +
-                                                        double.parse(
-                                                            gratitudesController
-                                                                .text);
-                                                  }),
-                                                ),
-                                                dense: true,
+                                                                    .text);
+                                                      }),
+                                                    ),
+                                                  ),
+                                                ],
                                               ),
-                                              ListTile(
-                                                leading: AutoSizeText("Tax:"),
-                                                title: TextField(
-                                                  controller: taxController,
-                                                  keyboardType:
-                                                      TextInputType.number,
-                                                  onEditingComplete: () =>
-                                                      setState(() {
-                                                    totalAmount = totalAmount! +
-                                                        double.parse(
-                                                            taxController.text);
-                                                  }),
-                                                ),
-                                                dense: true,
-                                              ),
+                                              Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.center,
+                                                  children: [
+                                                    Expanded(
+                                                      child: AutoSizeText(
+                                                        "Tax:",
+                                                        textAlign:
+                                                            TextAlign.center,
+                                                      ),
+                                                    ),
+                                                    Expanded(
+                                                      child: TextField(
+                                                        controller:
+                                                            taxController,
+                                                        keyboardType:
+                                                            TextInputType
+                                                                .number,
+                                                        onEditingComplete: () =>
+                                                            setState(() {
+                                                          totalAmount =
+                                                              totalAmount! +
+                                                                  double.parse(
+                                                                      taxController
+                                                                          .text);
+                                                        }),
+                                                      ),
+                                                    ),
+                                                  ]),
                                               ListTile(
                                                 leading: AutoSizeText("Total:"),
                                                 title: AutoSizeText(
-                                                  totalAmount.toString(),
+                                                  totalAmount!
+                                                      .toStringAsFixed(2),
                                                   style: Theme.of(context)
                                                       .textTheme
                                                       .subtitle1,
