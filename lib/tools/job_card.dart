@@ -49,14 +49,14 @@ class _jobCardState extends State<jobCard> {
   @override
   void initState() {
     super.initState();
-    waitTimeController = TextEditingController(text: "0");
-    addStopsController = TextEditingController(text: "0");
-    tollsController = TextEditingController(text: "0");
-    msCleanUpController = TextEditingController(text: "0");
-    vehileDamageController = TextEditingController(text: "0");
-    gratitudesController = TextEditingController(text: "0");
-    othersController = TextEditingController(text: "0");
-    taxController = TextEditingController(text: "0");
+    waitTimeController = TextEditingController(text: ".00");
+    addStopsController = TextEditingController(text: ".00");
+    tollsController = TextEditingController(text: ".00");
+    msCleanUpController = TextEditingController(text: ".00");
+    vehileDamageController = TextEditingController(text: ". 00");
+    gratitudesController = TextEditingController(text: ".00");
+    othersController = TextEditingController(text: ".00");
+    taxController = TextEditingController(text: ".00");
   }
 
   List buttonSelectedStatus = [
@@ -700,16 +700,25 @@ class _jobCardState extends State<jobCard> {
                                                       ),
                                                     ),
                                                   ]),
-                                              ListTile(
-                                                leading: AutoSizeText("Total:"),
-                                                title: AutoSizeText(
-                                                  totalAmount!
-                                                      .toStringAsFixed(2),
-                                                  style: Theme.of(context)
-                                                      .textTheme
-                                                      .subtitle1,
-                                                ),
-                                                dense: true,
+                                              Row(
+                                                children: [
+                                                  Expanded(
+                                                      child: AutoSizeText(
+                                                    "Total:",
+                                                    textAlign: TextAlign.center,
+                                                  )),
+                                                  Expanded(
+                                                    child: AutoSizeText(
+                                                      totalAmount!
+                                                          .toStringAsFixed(2),
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                      style: Theme.of(context)
+                                                          .textTheme
+                                                          .subtitle1,
+                                                    ),
+                                                  ),
+                                                ],
                                               ),
                                               ElevatedButton(
                                                 onPressed: () {
