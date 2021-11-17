@@ -513,6 +513,8 @@ class _jobCardState extends State<jobCard> {
                                                     child: TextField(
                                                       controller:
                                                           waitTimeController,
+                                                      textAlign:
+                                                          TextAlign.right,
                                                       keyboardType:
                                                           TextInputType.number,
                                                       onEditingComplete: () =>
@@ -539,6 +541,8 @@ class _jobCardState extends State<jobCard> {
                                                           addStopsController,
                                                       keyboardType:
                                                           TextInputType.number,
+                                                      textAlign:
+                                                          TextAlign.right,
                                                       onEditingComplete: () =>
                                                           setState(() {
                                                         totalAmount = totalAmount! +
@@ -565,6 +569,8 @@ class _jobCardState extends State<jobCard> {
                                                           tollsController,
                                                       keyboardType:
                                                           TextInputType.number,
+                                                      textAlign:
+                                                          TextAlign.right,
                                                       onEditingComplete: () =>
                                                           setState(() {
                                                         totalAmount =
@@ -592,6 +598,8 @@ class _jobCardState extends State<jobCard> {
                                                           msCleanUpController,
                                                       keyboardType:
                                                           TextInputType.number,
+                                                      textAlign:
+                                                          TextAlign.right,
                                                       onEditingComplete: () =>
                                                           setState(() {
                                                         totalAmount = totalAmount! +
@@ -618,6 +626,8 @@ class _jobCardState extends State<jobCard> {
                                                           vehileDamageController,
                                                       keyboardType:
                                                           TextInputType.number,
+                                                      textAlign:
+                                                          TextAlign.right,
                                                       onEditingComplete: () =>
                                                           setState(() {
                                                         totalAmount = totalAmount! +
@@ -648,6 +658,8 @@ class _jobCardState extends State<jobCard> {
                                                           gratitudesController,
                                                       keyboardType:
                                                           TextInputType.number,
+                                                      textAlign:
+                                                          TextAlign.right,
                                                       onChanged: (value) {
                                                         final val = TextSelection
                                                             .collapsed(
@@ -689,6 +701,8 @@ class _jobCardState extends State<jobCard> {
                                                         keyboardType:
                                                             TextInputType
                                                                 .number,
+                                                        textAlign:
+                                                            TextAlign.right,
                                                         onEditingComplete: () =>
                                                             setState(() {
                                                           totalAmount =
