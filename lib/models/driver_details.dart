@@ -95,6 +95,7 @@ class Reservation {
       this.type,
       this.reservationDo,
       this.hotelAddress,
+      this.pickup_time_iso,
       this.eadt});
 
   int? reservationId;
@@ -108,6 +109,7 @@ class Reservation {
   String? type;
   String? reservationDo;
   String? hotelAddress;
+  String? pickup_time_iso;
 
   factory Reservation.fromJson(Map<String, dynamic> json) => Reservation(
         reservationId: json["reservation_id"],
@@ -118,6 +120,7 @@ class Reservation {
         eadt: json["eadt"],
         pickupTime: json["pickup_time"],
         pu: json["pu"],
+        pickup_time_iso: json["pickup_time_iso"],
         type: json["type"],
         reservationDo: json["do"],
         hotelAddress: json["hotel_address"],

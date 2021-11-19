@@ -42,6 +42,8 @@ class _JobDetailsState extends State<JobDetails> {
                     duData: widget.allJobDetails[indexConst!]!.reservationDo!,
                     paxData: widget.allJobDetails[indexConst!]!.passengerName!,
                     eadt: widget.allJobDetails[indexConst!]!.eadt!,
+                    pickupTimeIso:
+                        widget.allJobDetails[indexConst!]!.pickup_time_iso,
                     hotelAddress:
                         widget.allJobDetails[indexConst!]!.hotelAddress!,
                     type: widget.allJobDetails[indexConst!]!.type!,

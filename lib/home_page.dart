@@ -128,6 +128,8 @@ class _HomePageState extends State<HomePage> {
                                 isDetail: false,
                                 hotelAddress: reservations[index].hotelAddress,
                                 resId: reservations[index].reservationId,
+                                pickupTimeIso:
+                                    reservations[index].pickup_time_iso,
                                 puTime: reservations[index].pickupTime,
                                 type: reservations[index].type,
                                 duData: reservations[index].reservationDo,

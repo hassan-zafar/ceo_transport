@@ -20,6 +20,7 @@ class jobCard extends StatefulWidget {
   final String? hotelAddress;
   final bool? isDetail;
   final String? type;
+  final String? pickupTimeIso;
   final String? puDataAddress;
   const jobCard(
       {this.jobNo,
@@ -30,6 +31,7 @@ class jobCard extends StatefulWidget {
       this.paxPhone,
       this.isDetail,
       this.puDataAddress,
+      this.pickupTimeIso,
       this.pax2,
       this.puData,
       this.type,
@@ -44,7 +46,7 @@ class jobCard extends StatefulWidget {
 class _jobCardState extends State<jobCard> {
   bool _isLoading = false;
   String? currentStatus = 'Not Assigned';
-
+  DateTime? pickupTIme;
   bool _containerExpanded = false;
   @override
   void initState() {
@@ -53,21 +55,13 @@ class _jobCardState extends State<jobCard> {
     addStopsController = TextEditingController(text: ".00");
     tollsController = TextEditingController(text: ".00");
     msCleanUpController = TextEditingController(text: ".00");
-    vehileDamageController = TextEditingController(text: ". 00");
+    vehileDamageController = TextEditingController(text: ".00");
     gratitudesController = TextEditingController(text: ".00");
     othersController = TextEditingController(text: ".00");
     taxController = TextEditingController(text: ".00");
+    pickupTIme = DateTime.parse(widget.pickupTimeIso!);
   }
 
-  List buttonSelectedStatus = [
-    'en_route',
-    'on_location',
-    'invehicle',
-    'wait_time',
-    'wait_time_passenger',
-    'no_show',
-    'done'
-  ];
   TextEditingController waitTimeController = TextEditingController();
   TextEditingController addStopsController = TextEditingController();
   TextEditingController tollsController = TextEditingController();
@@ -78,6 +72,19 @@ class _jobCardState extends State<jobCard> {
   TextEditingController taxController = TextEditingController();
   final _textFormKey = GlobalKey<FormState>();
   double? totalAmount = 0;
+  calculateTotal() {
+    setState(() {
+      totalAmount = double.parse(waitTimeController.text) +
+          double.parse(addStopsController.text) +
+          double.parse(tollsController.text) +
+          double.parse(msCleanUpController.text) +
+          double.parse(vehileDamageController.text) +
+          double.parse(gratitudesController.text) +
+          double.parse(taxController.text) +
+          double.parse(othersController.text);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -192,7 +199,9 @@ class _jobCardState extends State<jobCard> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Text("Current Status: "),
-                                Text(currentStatus!)
+                                Text(currentStatus == buttonSelectedStatus[6]
+                                    ? 'add. charges'
+                                    : currentStatus!)
                               ],
                             ),
                             Row(
@@ -402,7 +411,8 @@ class _jobCardState extends State<jobCard> {
                                         .then((passed) {
                                       if (passed) {
                                         // CustomToast.successToast(
-                                        //     message: "Status Set: No Show");
+                                        //     message: "Status Set: No Show");   ;
+                                        Navigator.of(context).pop();
                                       } else {
                                         CustomToast.errorToast(
                                             message: "Couldn't set");
@@ -517,13 +527,8 @@ class _jobCardState extends State<jobCard> {
                                                           TextAlign.right,
                                                       keyboardType:
                                                           TextInputType.number,
-                                                      onEditingComplete: () =>
-                                                          setState(() {
-                                                        totalAmount = totalAmount! +
-                                                            double.parse(
-                                                                waitTimeController
-                                                                    .text);
-                                                      }),
+                                                      onChanged: (value) =>
+                                                          calculateTotal(),
                                                     ),
                                                   ),
                                                 ],
@@ -543,13 +548,8 @@ class _jobCardState extends State<jobCard> {
                                                           TextInputType.number,
                                                       textAlign:
                                                           TextAlign.right,
-                                                      onEditingComplete: () =>
-                                                          setState(() {
-                                                        totalAmount = totalAmount! +
-                                                            double.parse(
-                                                                addStopsController
-                                                                    .text);
-                                                      }),
+                                                      onChanged: (value) =>
+                                                          calculateTotal(),
                                                     ),
                                                   ),
                                                 ],
@@ -571,14 +571,8 @@ class _jobCardState extends State<jobCard> {
                                                           TextInputType.number,
                                                       textAlign:
                                                           TextAlign.right,
-                                                      onEditingComplete: () =>
-                                                          setState(() {
-                                                        totalAmount =
-                                                            totalAmount! +
-                                                                double.parse(
-                                                                    tollsController
-                                                                        .text);
-                                                      }),
+                                                      onChanged: (value) =>
+                                                          calculateTotal(),
                                                     ),
                                                   ),
                                                 ],
@@ -600,13 +594,8 @@ class _jobCardState extends State<jobCard> {
                                                           TextInputType.number,
                                                       textAlign:
                                                           TextAlign.right,
-                                                      onEditingComplete: () =>
-                                                          setState(() {
-                                                        totalAmount = totalAmount! +
-                                                            double.parse(
-                                                                msCleanUpController
-                                                                    .text);
-                                                      }),
+                                                      onChanged: (value) =>
+                                                          calculateTotal(),
                                                     ),
                                                   ),
                                                 ],
@@ -628,13 +617,8 @@ class _jobCardState extends State<jobCard> {
                                                           TextInputType.number,
                                                       textAlign:
                                                           TextAlign.right,
-                                                      onEditingComplete: () =>
-                                                          setState(() {
-                                                        totalAmount = totalAmount! +
-                                                            double.parse(
-                                                                vehileDamageController
-                                                                    .text);
-                                                      }),
+                                                      onChanged: (value) =>
+                                                          calculateTotal(),
                                                     ),
                                                   ),
                                                 ],
@@ -660,23 +644,8 @@ class _jobCardState extends State<jobCard> {
                                                           TextInputType.number,
                                                       textAlign:
                                                           TextAlign.right,
-                                                      onChanged: (value) {
-                                                        final val = TextSelection
-                                                            .collapsed(
-                                                                offset:
-                                                                    gratitudesController
-                                                                        .text
-                                                                        .length);
-                                                        gratitudesController
-                                                            .selection = val;
-                                                      },
-                                                      onEditingComplete: () =>
-                                                          setState(() {
-                                                        totalAmount = totalAmount! +
-                                                            double.parse(
-                                                                gratitudesController
-                                                                    .text);
-                                                      }),
+                                                      onChanged: (value) =>
+                                                          calculateTotal(),
                                                     ),
                                                   ),
                                                 ],
@@ -703,68 +672,78 @@ class _jobCardState extends State<jobCard> {
                                                                 .number,
                                                         textAlign:
                                                             TextAlign.right,
-                                                        onEditingComplete: () =>
-                                                            setState(() {
-                                                          totalAmount =
-                                                              totalAmount! +
-                                                                  double.parse(
-                                                                      taxController
-                                                                          .text);
-                                                        }),
+                                                        onChanged: (value) =>
+                                                            calculateTotal(),
                                                       ),
                                                     ),
                                                   ]),
-                                              Row(
-                                                children: [
-                                                  Expanded(
-                                                      child: AutoSizeText(
-                                                    "Total:",
-                                                    textAlign: TextAlign.center,
-                                                  )),
-                                                  Expanded(
-                                                    child: AutoSizeText(
-                                                      totalAmount!
-                                                          .toStringAsFixed(2),
+                                              Padding(
+                                                padding:
+                                                    const EdgeInsets.all(8.0),
+                                                child: Row(
+                                                  children: [
+                                                    Expanded(
+                                                        child: AutoSizeText(
+                                                      "TOTAL:",
+                                                      style: TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.bold),
                                                       textAlign:
                                                           TextAlign.center,
-                                                      style: Theme.of(context)
-                                                          .textTheme
-                                                          .subtitle1,
+                                                    )),
+                                                    Expanded(
+                                                      child: AutoSizeText(
+                                                        totalAmount!
+                                                            .toStringAsFixed(2),
+                                                        style: TextStyle(
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .bold),
+                                                        textAlign:
+                                                            TextAlign.center,
+                                                      ),
                                                     ),
-                                                  ),
-                                                ],
+                                                  ],
+                                                ),
                                               ),
                                               ElevatedButton(
-                                                onPressed: () {
-                                                  ReservationAPI()
-                                                      .additionalChargesAPi(
-                                                          reservationId: widget
-                                                              .resId!,
-                                                          wait_time:
-                                                              waitTimeController
-                                                                  .text,
-                                                          add_stop:
-                                                              addStopsController
-                                                                  .text,
-                                                          clean_up:
-                                                              msCleanUpController
-                                                                  .text,
-                                                          damage:
-                                                              vehileDamageController
-                                                                  .text,
-                                                          gratuity:
-                                                              gratitudesController
-                                                                  .text,
-                                                          tax: taxController
+                                                onPressed: () async {
+                                                  setState(() {
+                                                    _isLoading = true;
+                                                  });
+                                                  await ReservationAPI().additionalChargesAPi(
+                                                      reservationId:
+                                                          widget.resId!,
+                                                      wait_time:
+                                                          waitTimeController
                                                               .text,
-                                                          tolls: tollsController
+                                                      add_stop:
+                                                          addStopsController
                                                               .text,
-                                                          others:
-                                                              othersController
-                                                                  .text);
+                                                      clean_up:
+                                                          msCleanUpController
+                                                              .text,
+                                                      damage:
+                                                          vehileDamageController
+                                                              .text,
+                                                      gratuity:
+                                                          gratitudesController
+                                                              .text,
+                                                      tax: taxController.text,
+                                                      tolls:
+                                                          tollsController.text,
+                                                      others: othersController
+                                                          .text);
+                                                  setState(() {
+                                                    _containerExpanded =
+                                                        !_containerExpanded;
+                                                    _isLoading = false;
+                                                    currentStatus =
+                                                        buttonSelectedStatus[6];
+                                                  });
                                                 },
                                                 child: AutoSizeText(
-                                                  'Enter Amount',
+                                                  'Submit',
                                                   softWrap: true,
                                                   style: Theme.of(context)
                                                       .textTheme
@@ -774,12 +753,26 @@ class _jobCardState extends State<jobCard> {
                                             ],
                                           ),
                                         )
-                                      : AutoSizeText(
-                                          "Additional Charges",
-                                          textAlign: TextAlign.center,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .bodyText1,
+                                      : Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            AutoSizeText(
+                                              "Additional Charges",
+                                              textAlign: TextAlign.center,
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .bodyText1,
+                                            ),
+                                            buttonSelectedStatus[6] ==
+                                                    currentStatus
+                                                ? Icon(
+                                                    Icons.done,
+                                                    size: 25,
+                                                    color: Colors.black,
+                                                  )
+                                                : Container()
+                                          ],
                                         )),
                             ),
                             GestureDetector(
@@ -826,7 +819,7 @@ class _jobCardState extends State<jobCard> {
                                             .textTheme
                                             .bodyText1,
                                       ),
-                                      buttonSelectedStatus[6] == currentStatus
+                                      buttonSelectedStatus[7] == currentStatus
                                           ? Icon(
                                               Icons.done,
                                               color: Colors.black,
