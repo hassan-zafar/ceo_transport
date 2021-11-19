@@ -411,8 +411,8 @@ class _jobCardState extends State<jobCard> {
                                         .then((passed) {
                                       if (passed) {
                                         // CustomToast.successToast(
-                                        //     message: "Status Set: No Show");   ;
-                                        Navigator.of(context).pop();
+                                        //     message: "Status Set: No Show");
+                                        Navigator.pop(context);
                                       } else {
                                         CustomToast.errorToast(
                                             message: "Couldn't set");
@@ -420,6 +420,7 @@ class _jobCardState extends State<jobCard> {
                                     });
                                     setState(() {
                                       _isLoading = false;
+                                      allNoShows.add(int.parse(widget.jobNo!));
                                       currentStatus = 'no_show';
                                     });
                                   },
@@ -799,6 +800,7 @@ class _jobCardState extends State<jobCard> {
                                   _isLoading = false;
                                   allCompletedJobs
                                       .add(int.parse(widget.jobNo!));
+                                  allNoShows.remove(int.parse(widget.jobNo!));
                                   currentStatus = 'done';
                                 });
                               },
