@@ -92,6 +92,9 @@ class _jobCardState extends State<jobCard> {
         Padding(
           padding: const EdgeInsets.all(12.0),
           child: Card(
+            color: DateTime.now().difference(pickupTIme!).inMinutes < 15
+                ? Colors.white10
+                : Colors.black,
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
             child: Padding(

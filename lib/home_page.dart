@@ -142,6 +142,21 @@ class _HomePageState extends State<HomePage> {
                                 eadt: reservations[index].eadt,
                                 puData: reservations[index].pu,
                               ),
+                              allNoShows.contains(index + 1)
+                                  ? GlassContainer(
+                                      borderRadius: BorderRadius.circular(50),
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(24.0),
+                                        child: Text(
+                                          "NO SHOW",
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.white,
+                                              fontSize: 40),
+                                        ),
+                                      ),
+                                    )
+                                  : Container(),
                               allCompletedJobs.contains(index + 1)
                                   ? GlassContainer(
                                       borderRadius: BorderRadius.circular(50),
