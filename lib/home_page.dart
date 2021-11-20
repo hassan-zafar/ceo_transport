@@ -151,7 +151,7 @@ class _HomePageState extends State<HomePage> {
                                           "NO SHOW",
                                           style: TextStyle(
                                               fontWeight: FontWeight.bold,
-                                              color: Colors.white,
+                                              color: Colors.red,
                                               fontSize: 40),
                                         ),
                                       ),
