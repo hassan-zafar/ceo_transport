@@ -157,6 +157,7 @@ class _HomePageState extends State<HomePage> {
                                       ),
                                     )
                                   : Container(),
+                                  //fixed something
                               allCompletedJobs.contains(index + 1)
                                   ? GlassContainer(
                                       borderRadius: BorderRadius.circular(50),
