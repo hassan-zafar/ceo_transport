@@ -319,58 +319,6 @@ class _jobCardState extends State<jobCard> {
                                 )),
                               ],
                             ),
-                            GestureDetector(
-                              onTap: () {
-                                setState(() {
-                                  _isLoading = true;
-                                });
-                                ReservationAPI()
-                                    .setStatus(
-                                        reservationNo: widget.resId,
-                                        token: token!,
-                                        type: "invehicle")
-                                    .then((passed) {
-                                  if (passed) {
-                                    // CustomToast.successToast(
-                                    //     message: "Status Set: In Vehicle");
-                                  } else {
-                                    CustomToast.errorToast(
-                                        message: "Couldn't set");
-                                  }
-                                });
-                                setState(() {
-                                  _isLoading = false;
-                                  currentStatus = 'invehicle';
-                                });
-                                ;
-                              },
-                              child: Container(
-                                  margin: EdgeInsets.all(8),
-                                  width: double.maxFinite,
-                                  decoration: BoxDecoration(
-                                      color: Colors.yellow.shade700,
-                                      borderRadius: BorderRadius.circular(12)),
-                                  padding: EdgeInsets.all(12),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      AutoSizeText(
-                                        "Successful Rendezvous",
-                                        textAlign: TextAlign.center,
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodyText1,
-                                      ),
-                                      buttonSelectedStatus[2] == currentStatus
-                                          ? Icon(
-                                              Icons.done,
-                                              color: Colors.black,
-                                              size: 25,
-                                            )
-                                          : Container(),
-                                    ],
-                                  )),
-                            ),
                             Row(
                               children: [
                                 Expanded(
@@ -457,6 +405,58 @@ class _jobCardState extends State<jobCard> {
                                       )),
                                 )),
                               ],
+                            ),
+                            GestureDetector(
+                              onTap: () {
+                                setState(() {
+                                  _isLoading = true;
+                                });
+                                ReservationAPI()
+                                    .setStatus(
+                                        reservationNo: widget.resId,
+                                        token: token!,
+                                        type: "invehicle")
+                                    .then((passed) {
+                                  if (passed) {
+                                    // CustomToast.successToast(
+                                    //     message: "Status Set: In Vehicle");
+                                  } else {
+                                    CustomToast.errorToast(
+                                        message: "Couldn't set");
+                                  }
+                                });
+                                setState(() {
+                                  _isLoading = false;
+                                  currentStatus = 'invehicle';
+                                });
+                                ;
+                              },
+                              child: Container(
+                                  margin: EdgeInsets.all(8),
+                                  width: double.maxFinite,
+                                  decoration: BoxDecoration(
+                                      color: Colors.yellow.shade700,
+                                      borderRadius: BorderRadius.circular(12)),
+                                  padding: EdgeInsets.all(12),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      AutoSizeText(
+                                        "Successful Rendezvous",
+                                        textAlign: TextAlign.center,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyText1,
+                                      ),
+                                      buttonSelectedStatus[2] == currentStatus
+                                          ? Icon(
+                                              Icons.done,
+                                              color: Colors.black,
+                                              size: 25,
+                                            )
+                                          : Container(),
+                                    ],
+                                  )),
                             ),
                             InkWell(
                               onTap: () {
