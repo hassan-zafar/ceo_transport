@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:ceo_transport/models/driver_details.dart';
 import 'package:ceo_transport/tools/custom_toast.dart';
 import 'package:http/http.dart' as http;
@@ -19,7 +21,8 @@ class DriverApi {
     print("in driver api");
     if (response.statusCode == 200) {
       String res = await response.stream.bytesToString();
-      print(res);
+      print("reservations detail ${res}");
+      log(res);
       DriverDetails driverDetails = await driverDetailsFromJson(res);
       return driverDetails;
     } else {
