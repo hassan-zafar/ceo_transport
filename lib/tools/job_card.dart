@@ -59,8 +59,7 @@ class _jobCardState extends State<jobCard> {
     gratitudesController = TextEditingController(text: ".00");
     othersController = TextEditingController(text: ".00");
     taxController = TextEditingController(text: ".00");
-    pickupTIme =
-        DateTime.parse(widget.pickupTimeIso ?? "0000-00-00 00:00:00.000");
+    pickupTIme = DateTime.parse(widget.pickupTimeIso!);
   }
 
   TextEditingController waitTimeController = TextEditingController();
@@ -71,7 +70,7 @@ class _jobCardState extends State<jobCard> {
   TextEditingController gratitudesController = TextEditingController();
   TextEditingController othersController = TextEditingController();
   TextEditingController taxController = TextEditingController();
-  // final _textFormKey = GlobalKey<FormState>();
+  final _textFormKey = GlobalKey<FormState>();
   double? totalAmount = 0;
   calculateTotal() {
     setState(() {
@@ -104,12 +103,10 @@ class _jobCardState extends State<jobCard> {
                 children: [
                   Container(
                     decoration: BoxDecoration(
-                      color: Colors.black,
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(20),
-                        topRight: Radius.circular(20),
-                      ),
-                    ),
+                        color: Colors.black,
+                        borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(20),
+                            topRight: Radius.circular(20))),
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Row(
@@ -213,32 +210,32 @@ class _jobCardState extends State<jobCard> {
                             Row(
                               children: [
                                 Expanded(
-                                  child: GestureDetector(
-                                    onTap: () {
-                                      setState(() {
-                                        _isLoading = true;
-                                      });
+                                    child: GestureDetector(
+                                  onTap: () {
+                                    setState(() {
+                                      _isLoading = true;
+                                    });
 
-                                      ReservationAPI()
-                                          .setStatus(
-                                              reservationNo: widget.resId,
-                                              token: token!,
-                                              type: "en_route")
-                                          .then((passed) {
-                                        if (passed) {
-                                          // CustomToast.successToast(
-                                          //     message: "Status Set: En_Route");
-                                        } else {
-                                          CustomToast.errorToast(
-                                              message: "Couldn't set");
-                                        }
-                                      });
-                                      setState(() {
-                                        _isLoading = false;
-                                        currentStatus = 'en_route';
-                                      });
-                                    },
-                                    child: Container(
+                                    ReservationAPI()
+                                        .setStatus(
+                                            reservationNo: widget.resId,
+                                            token: token!,
+                                            type: "en_route")
+                                        .then((passed) {
+                                      if (passed) {
+                                        // CustomToast.successToast(
+                                        //     message: "Status Set: En_Route");
+                                      } else {
+                                        CustomToast.errorToast(
+                                            message: "Couldn't set");
+                                      }
+                                    });
+                                    setState(() {
+                                      _isLoading = false;
+                                      currentStatus = 'en_route';
+                                    });
+                                  },
+                                  child: Container(
                                       margin: EdgeInsets.all(12),
                                       decoration: BoxDecoration(
                                           color: Colors.yellow,
@@ -246,85 +243,80 @@ class _jobCardState extends State<jobCard> {
                                               BorderRadius.circular(12)),
                                       padding: EdgeInsets.all(12),
                                       child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          AutoSizeText(
-                                            "En Route",
-                                            textAlign: TextAlign.center,
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .bodyText1,
-                                          ),
-                                          buttonSelectedStatus[0] ==
-                                                  currentStatus
-                                              ? Icon(
-                                                  Icons.done,
-                                                  color: Colors.black,
-                                                  size: 25,
-                                                )
-                                              : Container(),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                ),
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            AutoSizeText(
+                                              "En Route",
+                                              textAlign: TextAlign.center,
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .bodyText1,
+                                            ),
+                                            buttonSelectedStatus[0] ==
+                                                    currentStatus
+                                                ? Icon(
+                                                    Icons.done,
+                                                    color: Colors.black,
+                                                    size: 25,
+                                                  )
+                                                : Container(),
+                                          ])),
+                                )),
                                 Expanded(
-                                  child: GestureDetector(
-                                    onTap: () {
-                                      setState(() {
-                                        _isLoading = true;
-                                      });
-                                      ReservationAPI()
-                                          .setStatus(
-                                              reservationNo: widget.resId,
-                                              token: token!,
-                                              type: "on_location")
-                                          .then((passed) {
-                                        if (passed) {
-                                          // CustomToast.successToast(
-                                          //     message: "Status Set: On Location");
-                                        } else {
-                                          CustomToast.errorToast(
-                                              message: "Couldn't set");
-                                        }
-                                      });
-                                      setState(() {
-                                        _isLoading = false;
-                                        currentStatus = 'on_location';
-                                      });
-                                    },
-                                    child: Container(
-                                      margin: EdgeInsets.all(8),
-                                      decoration: BoxDecoration(
-                                          color: Colors.yellow,
-                                          borderRadius:
-                                              BorderRadius.circular(12)),
-                                      padding: EdgeInsets.all(12),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          AutoSizeText(
-                                            "On Locale",
-                                            textAlign: TextAlign.center,
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .bodyText1,
-                                          ),
-                                          buttonSelectedStatus[1] ==
-                                                  currentStatus
-                                              ? Icon(
-                                                  Icons.done,
-                                                  color: Colors.black,
-                                                  size: 25,
-                                                )
-                                              : Container(),
-                                        ],
-                                      ),
+                                    child: GestureDetector(
+                                  onTap: () {
+                                    setState(() {
+                                      _isLoading = true;
+                                    });
+                                    ReservationAPI()
+                                        .setStatus(
+                                            reservationNo: widget.resId,
+                                            token: token!,
+                                            type: "on_location")
+                                        .then((passed) {
+                                      if (passed) {
+                                        // CustomToast.successToast(
+                                        //     message: "Status Set: On Location");
+                                      } else {
+                                        CustomToast.errorToast(
+                                            message: "Couldn't set");
+                                      }
+                                    });
+                                    setState(() {
+                                      _isLoading = false;
+                                      currentStatus = 'on_location';
+                                    });
+                                  },
+                                  child: Container(
+                                    margin: EdgeInsets.all(8),
+                                    decoration: BoxDecoration(
+                                        color: Colors.yellow,
+                                        borderRadius:
+                                            BorderRadius.circular(12)),
+                                    padding: EdgeInsets.all(12),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        AutoSizeText(
+                                          "On Locale",
+                                          textAlign: TextAlign.center,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodyText1,
+                                        ),
+                                        buttonSelectedStatus[1] == currentStatus
+                                            ? Icon(
+                                                Icons.done,
+                                                color: Colors.black,
+                                                size: 25,
+                                              )
+                                            : Container(),
+                                      ],
                                     ),
                                   ),
-                                ),
+                                )),
                               ],
                             ),
                             Row(
@@ -357,34 +349,33 @@ class _jobCardState extends State<jobCard> {
                                   ),
                                 ),
                                 Expanded(
-                                  child: GestureDetector(
-                                    onTap: () {
-                                      setState(() {
-                                        _isLoading = true;
-                                      });
-                                      ReservationAPI()
-                                          .setStatus(
-                                              reservationNo: widget.resId,
-                                              token: token!,
-                                              type: "no_show")
-                                          .then((passed) {
-                                        if (passed) {
-                                          // CustomToast.successToast(
-                                          //     message: "Status Set: No Show");
-                                          Navigator.pop(context);
-                                        } else {
-                                          CustomToast.errorToast(
-                                              message: "Couldn't set");
-                                        }
-                                      });
-                                      setState(() {
-                                        _isLoading = false;
-                                        allNoShows
-                                            .add(int.parse(widget.jobNo!));
-                                        currentStatus = 'no_show';
-                                      });
-                                    },
-                                    child: Container(
+                                    child: GestureDetector(
+                                  onTap: () {
+                                    setState(() {
+                                      _isLoading = true;
+                                    });
+                                    ReservationAPI()
+                                        .setStatus(
+                                            reservationNo: widget.resId,
+                                            token: token!,
+                                            type: "no_show")
+                                        .then((passed) {
+                                      if (passed) {
+                                        // CustomToast.successToast(
+                                        //     message: "Status Set: No Show");
+                                        Navigator.pop(context);
+                                      } else {
+                                        CustomToast.errorToast(
+                                            message: "Couldn't set");
+                                      }
+                                    });
+                                    setState(() {
+                                      _isLoading = false;
+                                      allNoShows.add(int.parse(widget.jobNo!));
+                                      currentStatus = 'no_show';
+                                    });
+                                  },
+                                  child: Container(
                                       margin: EdgeInsets.all(8),
                                       decoration: BoxDecoration(
                                           color: Colors.red,
@@ -411,10 +402,8 @@ class _jobCardState extends State<jobCard> {
                                                 )
                                               : Container(),
                                         ],
-                                      ),
-                                    ),
-                                  ),
-                                ),
+                                      )),
+                                )),
                               ],
                             ),
                             GestureDetector(
@@ -491,22 +480,20 @@ class _jobCardState extends State<jobCard> {
                                   child: _containerExpanded
                                       ? Card(
                                           shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(20),
-                                          ),
+                                              borderRadius:
+                                                  BorderRadius.circular(20)),
                                           child: Column(
                                             children: [
                                               Container(
                                                 decoration: BoxDecoration(
-                                                  color: Colors.black,
-                                                  borderRadius:
-                                                      BorderRadius.only(
-                                                    topLeft:
-                                                        Radius.circular(20),
-                                                    topRight:
-                                                        Radius.circular(20),
-                                                  ),
-                                                ),
+                                                    color: Colors.black,
+                                                    borderRadius:
+                                                        BorderRadius.only(
+                                                            topLeft: Radius
+                                                                .circular(20),
+                                                            topRight:
+                                                                Radius.circular(
+                                                                    20))),
                                                 child: Padding(
                                                   padding:
                                                       const EdgeInsets.all(8.0),

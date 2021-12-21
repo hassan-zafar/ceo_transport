@@ -6,7 +6,6 @@ class UserLocalData {
       _preferences = await SharedPreferences.getInstance();
 
   static void signout() => _preferences!.clear();
-  static const String _tokenKey = 'TOKENKEY';
 
   static const String _uidKey = 'UIDKEY';
   static const String _emailKey = 'EMAILKEY';
@@ -22,9 +21,6 @@ class UserLocalData {
   //
   static Future<void> setUserUID(String uid) async =>
       _preferences!.setString(_uidKey, uid);
-
-  static Future<void> setTokenKey(String tokenKey) async =>
-      _preferences!.setString(_tokenKey, tokenKey);
 
   static Future<void> setUserPassword(String password) async =>
       _preferences!.setString(_password, password);
@@ -52,7 +48,6 @@ class UserLocalData {
   //
   // Getters
   //
-  static String get getTokenKey => _preferences!.getString(_tokenKey) ?? '';
   static String get getUserUID => _preferences!.getString(_uidKey) ?? '';
   static String get getPassword => _preferences!.getString(_password) ?? '';
   static String get getUserEmail => _preferences!.getString(_emailKey) ?? '';
